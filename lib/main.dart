@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip_app/view/dash_board.dart';
+import 'package:trip_app/view/details_screen.dart';
 import 'package:trip_app/view/splash_scree.dart';
 
 void main() {
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       initialRoute: SplashScreen.id,
       routes: {
         SplashScreen.id: (context) => const SplashScreen(),
-        DashBoardScreen.id: (context) => const DashBoardScreen()
+        DashBoardScreen.id: (context) => const DashBoardScreen(),
+        DetailScreen.id: (context) => const DetailScreen()
       },
     );
   }
