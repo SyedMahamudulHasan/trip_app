@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class Kwidgets {
   static Container tripdataItem({dataType, data, size, width = 1}) {
@@ -44,4 +45,26 @@ class Kwidgets {
       ),
     );
   }
+///===================================================================>
+  static final rightEditIcon = Container(
+    padding: const EdgeInsets.only(right: 20),
+    margin: const EdgeInsets.only(bottom: 10),
+    color: Colors.redAccent,
+    alignment: Alignment.centerRight,
+    child: const Icon(
+      Icons.delete,
+      color: Colors.white,
+    ),
+  );
+
+   static final leftEditIcon = Container(
+    padding: const EdgeInsets.only(left: 20),
+    margin: const EdgeInsets.only(bottom: 10),
+    color: const Color(0xFF2e3253).withOpacity(0.5),
+    alignment: Alignment.centerLeft,
+    child: const Icon(
+      FeatherIcons.check,
+      color: Colors.white,
+    ),
+  );
 }

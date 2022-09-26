@@ -35,33 +35,12 @@ class CustomTripWidget extends StatelessWidget {
     );
   }
 
-  final leftEditIcon = Container(
-    padding: const EdgeInsets.only(left: 20),
-    margin: const EdgeInsets.only(bottom: 10),
-    color: const Color(0xFF2e3253).withOpacity(0.5),
-    alignment: Alignment.centerLeft,
-    child: const Icon(
-      FeatherIcons.check,
-      color: Colors.white,
-    ),
-  );
-  final rightEditIcon = Container(
-    padding: const EdgeInsets.only(right: 20),
-    margin: const EdgeInsets.only(bottom: 10),
-    color: Colors.redAccent,
-    alignment: Alignment.centerRight,
-    child: const Icon(
-      Icons.delete,
-      color: Colors.white,
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       key: ObjectKey(index),
-      background: leftEditIcon,
-      secondaryBackground: rightEditIcon,
+      background: Kwidgets.leftEditIcon,
+      secondaryBackground: Kwidgets.rightEditIcon,
       onDismissed: (direction) {
         log('Data dismissed');
       },
@@ -123,11 +102,15 @@ class CustomTripWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             child: Text('Confirm'),
                           ),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             child: Text('Completed'),
                           ),
                         ],
