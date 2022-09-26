@@ -5,7 +5,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:trip_app/model/constants.dart';
 
 class CustomTripWidget extends StatelessWidget {
-  CustomTripWidget({
+  const CustomTripWidget({
     Key? key,
     required this.size,
     required this.index,
@@ -105,13 +105,13 @@ class CustomTripWidget extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text('Confirm'),
+                            child: const Text('Confirm'),
                           ),
                           ElevatedButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text('Completed'),
+                            child: const Text('Completed'),
                           ),
                         ],
                       )
