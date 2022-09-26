@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import '../model/utility/custom_widget/custom_trip_widget.dart';
 
 class DashBoardScreen extends StatefulWidget {
   static String id = '/dashBoard';
@@ -45,7 +47,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     color: Colors.grey.withOpacity(0.7),
                     spreadRadius: 1,
                     blurRadius: 4,
-                    offset: const Offset(2, 5), // changes position of shadow
+                    offset: const Offset(2, 5),
                   ),
                 ],
               ),
@@ -57,7 +59,37 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   hintText: 'Search a trip..',
                 ),
               ),
-            )
+            ),
+            SizedBox(
+              height: size.height * 0.04,
+            ),
+            ////==============================================> filter icon
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Trip request list',
+                  style: TextStyle(
+                    fontFamily: 'Urbanist',
+                    fontWeight: FontWeight.w700,
+                    fontSize: size.width * 0.05,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(FeatherIcons.filter),
+                ),
+              ],
+            ),
+
+            ///==============================================> list of trips
+            Expanded(
+              child: ListView.builder(
+                // shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (context, index) => CustomTripWidget(size: size),
+              ),
+            ),
           ],
         ),
       ),
