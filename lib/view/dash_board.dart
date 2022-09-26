@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:trip_app/view/details_screen.dart';
-import '../model/utility/custom_widget/custom_trip_widget.dart';
+import 'package:trip_app/view/utility/custom_widget/custom_trip_widget.dart';
+
 
 class DashBoardScreen extends StatefulWidget {
   static String id = '/dashBoard';
