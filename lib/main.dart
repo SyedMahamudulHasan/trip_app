@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trip_app/view/dash_board.dart';
 import 'package:trip_app/view/details_screen.dart';
 import 'package:trip_app/view/splash_scree.dart';
+import 'package:trip_app/view/success_splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       routes: {
         SplashScreen.id: (context) => const SplashScreen(),
         DashBoardScreen.id: (context) => const DashBoardScreen(),
-        DetailScreen.id: (context) => const DetailScreen()
+        DetailScreen.id: (context) => const DetailScreen(),
+        SuccessScreen.id: (context) => const SuccessScreen(),
       },
     );
   }

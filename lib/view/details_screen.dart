@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:trip_app/view/success_splash_screen.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key}) : super(key: key);
@@ -50,13 +51,26 @@ class DetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 tripdataItem(
-                    dataType: "Passenger", data: "4", size: size, width: 0.4),
+                    dataType: "Passengers", data: "4", size: size, width: 0.4),
                 tripdataItem(
-                    dataType: "children", data: "4", size: size, width: 0.4),
+                    dataType: "Childrens", data: "4", size: size, width: 0.4),
               ],
             ),
-            tripdataItem(
-                dataType: 'Pickup point', data: 'destination', size: size),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                tripdataItem(
+                    dataType: 'Pickup point',
+                    data: 'Dhaka',
+                    size: size,
+                    width: 0.4),
+                tripdataItem(
+                    dataType: 'Destination',
+                    data: 'Jessore',
+                    size: size,
+                    width: 0.4),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -88,7 +102,9 @@ class DetailScreen extends StatelessWidget {
                   child: Text('Cancel'),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, SuccessScreen.id);
+                  },
                   child: Text('Conform'),
                 )
               ],
