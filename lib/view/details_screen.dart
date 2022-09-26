@@ -30,7 +30,7 @@ class DetailScreen extends StatelessWidget {
             ),
 
             SizedBox(
-              height: size.height * 0.04,
+              height: size.height * 0.02,
             ),
 
             ///=======================================>
@@ -105,7 +105,7 @@ class DetailScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, SuccessScreen.id);
                   },
-                  child: Text('Conform'),
+                  child: Text('Confirm'),
                 )
               ],
             )

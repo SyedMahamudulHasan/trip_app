@@ -92,7 +92,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   onTap: () {
                     Navigator.pushNamed(context, DetailScreen.id);
                   },
-                  child: CustomTripWidget(size: size),
+                  child: CustomTripWidget(
+                    size: size,
+                    index: index,
+                  ),
                 ),
               ),
             ),
