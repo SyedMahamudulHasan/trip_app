@@ -1,107 +1,211 @@
-// Example Usage
-// Map<String, dynamic> map = jsonDecode();
-// var myRootNode = TripModel.fromJson(map);
+// // To parse this JSON data, do
+// //
+// //     final tripModel = tripModelFromJson(jsonString);
+// import 'dart:convert';
+
+// List<TripModel> tripModelFromJson(String str) =>
+//     List<TripModel>.from(json.decode(str).map((x) => TripModel.fromJson(x)));
+
+// String tripModelToJson(List<TripModel> data) =>
+//     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+// class TripModel {
+//   TripModel({
+//     required this.requestTripId,
+//     required this.tripInformation,
+//     required this.tripStatus,
+//   });
+
+//   final String requestTripId;
+//   final TripInformation tripInformation;
+//   final String tripStatus;
+
+//   factory TripModel.fromJson(Map<String, dynamic> json) => TripModel(
+//         requestTripId: json["request_trip_id"],
+//         tripInformation: TripInformation.fromJson(json["trip_information"]),
+//         tripStatus: json["trip_status"],
+//       );
+
+//   Map<String, dynamic> toJson() => {
+//         "request_trip_id": requestTripId,
+//         "trip_information": tripInformation.toJson(),
+//         "trip_status": tripStatus,
+//       };
+// }
+
+// class TripInformation {
+//   TripInformation({
+//     required this.fullName,
+//     required this.email,
+//     required this.phone,
+//     required this.address,
+//     required this.webUrl,
+//     required this.vehicleType,
+//     required this.numberOfPeople,
+//     required this.luggage,
+//     required this.maxWeight,
+//     required this.childSeat,
+//     required this.pickupPoint,
+//     required this.destination,
+//     required this.date,
+//     required this.time,
+//     required this.stops,
+//   });
+
+//   final String fullName;
+//   final String email;
+//   final String phone;
+//   final String address;
+//   final String webUrl;
+//   final String vehicleType;
+//   final int numberOfPeople;
+//   final int luggage;
+//   final int maxWeight;
+//   final int childSeat;
+//   final String pickupPoint;
+//   final String destination;
+//   final DateTime date;
+//   final String time;
+//   final List<String> stops;
+
+//   factory TripInformation.fromJson(Map<String, dynamic> json) =>
+//       TripInformation(
+//         fullName: json["full_name"],
+//         email: json["email"],
+//         phone: json["phone"],
+//         address: json["address"],
+//         webUrl: json["web_url"],
+//         vehicleType: json["vehicle_type"],
+//         numberOfPeople: json["number_of_people"],
+//         luggage: json["luggage"],
+//         maxWeight: json["max_weight"],
+//         childSeat: json["child_seat"],
+//         pickupPoint: json["pickup_point"],
+//         destination: json["destination"],
+//         date: DateTime.parse(json["date"]),
+//         time: json["time"],
+//         stops = json['stops'].cast<String>();
+//         //stops: List<String>.from(json["stops"].map((x) => x)),
+//       );
+
+//   Map<String, dynamic> toJson() => {
+//         "full_name": fullName,
+//         "email": email,
+//         "phone": phone,
+//         "address": address,
+//         "web_url": webUrl,
+//         "vehicle_type": vehicleType,
+//         "number_of_people": numberOfPeople,
+//         "luggage": luggage,
+//         "max_weight": maxWeight,
+//         "child_seat": childSeat,
+//         "pickup_point": pickupPoint,
+//         "destination": destination,
+//         "date":
+//             "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+//         "time": time,
+//         //"stops": List<dynamic>.from(stops.map((x) => x)),
+//       };
+// }
+
 
 class TripModel {
-  String? requesttripid;
-  TripInformation? tripinformation;
-  String? tripstatus;
+  String? requestTripId;
+  TripInformation? tripInformation;
+  String? tripStatus;
 
-  TripModel({this.requesttripid, this.tripinformation, this.tripstatus});
+  TripModel({this.requestTripId, this.tripInformation, this.tripStatus});
 
   TripModel.fromJson(Map<String, dynamic> json) {
-    requesttripid = json['request_trip_id'];
-    tripinformation = json['trip_information'] != null
-        ? TripInformation?.fromJson(json['trip_information'])
+    requestTripId = json['request_trip_id'];
+    tripInformation = json['trip_information'] != null
+        ?  TripInformation.fromJson(json['trip_information'])
         : null;
-    tripstatus = json['trip_status'];
+    tripStatus = json['trip_status'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['request_trip_id'] = requesttripid;
-    data['trip_information'] = tripinformation!.toJson();
-    data['trip_status'] = tripstatus;
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+    
+  //   final Map<String, dynamic> data =  Map<String, dynamic>();
+  //   data['request_trip_id'] = this.requestTripId;
+  //   if (this.tripInformation != null) {
+  //     data['trip_information'] = this.tripInformation!.toJson();
+  //   }
+  //   data['trip_status'] = this.tripStatus;
+  //   return data;
+  // }
 }
 
 class TripInformation {
-  String? fullname;
+  String? fullName;
   String? email;
   String? phone;
   String? address;
-  String? weburl;
-  String? vehicletype;
-  int? numberofpeople;
+  String? webUrl;
+  String? vehicleType;
+  int? numberOfPeople;
   int? luggage;
-  int? maxweight;
-  int? childseat;
-  String? pickuppoint;
+  int? maxWeight;
+  int? childSeat;
+  String? pickupPoint;
   String? destination;
   String? date;
   String? time;
-  List<String?>? stops;
+  List<String>? stops;
 
   TripInformation(
-      {this.fullname,
+      {this.fullName,
       this.email,
       this.phone,
       this.address,
-      this.weburl,
-      this.vehicletype,
-      this.numberofpeople,
+      this.webUrl,
+      this.vehicleType,
+      this.numberOfPeople,
       this.luggage,
-      this.maxweight,
-      this.childseat,
-      this.pickuppoint,
+      this.maxWeight,
+      this.childSeat,
+      this.pickupPoint,
       this.destination,
       this.date,
       this.time,
       this.stops});
 
   TripInformation.fromJson(Map<String, dynamic> json) {
-    fullname = json['full_name'];
+    fullName = json['full_name'];
     email = json['email'];
     phone = json['phone'];
     address = json['address'];
-    weburl = json['web_url'];
-    vehicletype = json['vehicle_type'];
-    numberofpeople = json['number_of_people'];
+    webUrl = json['web_url'];
+    vehicleType = json['vehicle_type'];
+    numberOfPeople = json['number_of_people'];
     luggage = json['luggage'];
-    maxweight = json['max_weight'];
-    childseat = json['child_seat'];
-    pickuppoint = json['pickup_point'];
+    maxWeight = json['max_weight'];
+    childSeat = json['child_seat'];
+    pickupPoint = json['pickup_point'];
     destination = json['destination'];
     date = json['date'];
     time = json['time'];
-    stops = json['stops'];
-    //   if (json['stops'] != null) {
-    //    stops = <String>[];
-    //    json['stops'].forEach( (v) {
-    //    stops!.add(.fromJson(v));
-    //   });
-    // }
+    stops = json['stops'].cast<String>();
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['full_name'] = fullname;
-    data['email'] = email;
-    data['phone'] = phone;
-    data['address'] = address;
-    data['web_url'] = weburl;
-    data['vehicle_type'] = vehicletype;
-    data['number_of_people'] = numberofpeople;
-    data['luggage'] = luggage;
-    data['max_weight'] = maxweight;
-    data['child_seat'] = childseat;
-    data['pickup_point'] = pickuppoint;
-    data['destination'] = destination;
-    data['date'] = date;
-    data['time'] = time;
-    data['stops'] =
-        stops; //!= null ? stops!.map((v) => v?.toJson()).toList() : null;
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['full_name'] = this.fullName;
+  //   data['email'] = this.email;
+  //   data['phone'] = this.phone;
+  //   data['address'] = this.address;
+  //   data['web_url'] = this.webUrl;
+  //   data['vehicle_type'] = this.vehicleType;
+  //   data['number_of_people'] = this.numberOfPeople;
+  //   data['luggage'] = this.luggage;
+  //   data['max_weight'] = this.maxWeight;
+  //   data['child_seat'] = this.childSeat;
+  //   data['pickup_point'] = this.pickupPoint;
+  //   data['destination'] = this.destination;
+  //   data['date'] = this.date;
+  //   data['time'] = this.time;
+  //   data['stops'] = this.stops;
+  //   return data;
+  // }
 }
+

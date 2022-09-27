@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/view/dash_board.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,6 +19,9 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+
+    final postdata = Provider.of<DataController>(context, listen: false);
+    postdata.getAllTrips();
 
     _controller = AnimationController(vsync: this);
 
