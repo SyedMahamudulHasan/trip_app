@@ -49,7 +49,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.7),
+                    color: Colors.blueGrey.withOpacity(0.7),
                     spreadRadius: 1,
                     blurRadius: 4,
                     offset: const Offset(2, 5),
@@ -89,6 +89,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
             ///==============================================> list of trips
             Expanded(
+                child: Visibility(
+              visible: data.isLoading,
+              replacement: const Center(
+                child: CircularProgressIndicator(),
+              ),
               child: ListView.builder(
                 // shrinkWrap: true,
                 itemCount: data.trips.length,
@@ -112,7 +117,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ),
               ),
-            ),
+            )),
           ],
         ),
       ),

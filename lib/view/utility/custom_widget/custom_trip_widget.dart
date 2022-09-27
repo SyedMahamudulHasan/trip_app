@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:trip_app/model/constants.dart';
@@ -68,7 +67,7 @@ class CustomTripWidget extends StatelessWidget {
                           dataType: 'Name',
                           data: tripInformation.fullName,
                           size: size),
-                            Kwidgets.tripdataItem(
+                      Kwidgets.tripdataItem(
                           dataType: 'Phone number',
                           data: tripInformation.phone,
                           size: size),

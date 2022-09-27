@@ -47,19 +47,29 @@ class DetailScreen extends StatelessWidget {
                 dataType: "phone", data: tripInfo.phone, size: size),
             Kwidgets.tripdataItem(
                 dataType: "address", data: tripInfo.address, size: size),
+
+            ///===============================web url
+
+            // Kwidgets.tripdataItem(
+            //     dataType: "web_url", data: tripInfo.webUrl, size: size),
+
             Kwidgets.tripdataItem(
-                dataType: "web_url",
-                data: tripInfo.webUrl,
+                dataType: "Vehicle type",
+                data: tripInfo.vehicleType,
                 size: size),
-            Kwidgets.tripdataItem(
-                dataType: "Vehicle type", data: tripInfo.vehicleType, size: size),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Kwidgets.tripdataItem(
-                    dataType: "Passengers", data: tripInfo.numberOfPeople.toString(), size: size, width: 0.4),
+                    dataType: "Passengers",
+                    data: tripInfo.numberOfPeople.toString(),
+                    size: size,
+                    width: 0.4),
                 Kwidgets.tripdataItem(
-                    dataType: "Childrens", data: tripInfo.childSeat.toString(), size: size, width: 0.4),
+                    dataType: "Childrens",
+                    data: tripInfo.childSeat.toString(),
+                    size: size,
+                    width: 0.4),
               ],
             ),
             Row(
@@ -86,7 +96,10 @@ class DetailScreen extends StatelessWidget {
                     size: size,
                     width: 0.4),
                 Kwidgets.tripdataItem(
-                    dataType: 'Time', data: tripInfo.time, size: size, width: 0.4),
+                    dataType: 'Time',
+                    data: tripInfo.time,
+                    size: size,
+                    width: 0.4),
               ],
             ),
             ////=======================================================stops

@@ -1,7 +1,8 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+
+const String baseUrl = 'https://4c3e-103-7-249-41.ngrok.io/api/v1';
 
 class Kwidgets {
   static Container tripdataItem({dataType, data, size, width = 1}) {
@@ -16,7 +17,7 @@ class Kwidgets {
         border: Border.all(color: Colors.black12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.8),
+            color: Colors.blueGrey.withOpacity(0.8),
             //spreadRadius: 0,
             blurRadius: 1.5,
             offset: const Offset(1, 2),
@@ -24,7 +25,7 @@ class Kwidgets {
         ],
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        //mainAxisSize: MainAxisSize.max,
         children: [
           Text(
             dataType + ":  ",
@@ -34,24 +35,30 @@ class Kwidgets {
               fontSize: 16,
             ),
           ),
-          ///============================================> stops handled 
-         dataType == 'Stops' ? SizedBox(
-          child: Row(
-            children: (data as List).map((stop) => Text(stop.toString() + ", ")).toList(),
-          ),
-         ) : AutoSizeText(
-            data,
-            style: const TextStyle(
-              fontFamily: 'urbanist',
-              //fontWeight: FontWeight.w400,
-            ),
-            maxLines: 2,
-          )
+
+          ///============================================> stops handled
+          dataType == 'Stops'
+              ? SizedBox(
+                  child: Row(
+                    children: (data as List)
+                        .map((stop) => Text(stop.toString() + ", "))
+                        .toList(),
+                  ),
+                )
+              : AutoSizeText(
+                  data,
+                  style: const TextStyle(
+                    fontFamily: 'urbanist',
+                    //fontWeight: FontWeight.w400,
+                  ),
+                  maxLines: 2,
+                )
         ],
       ),
     );
   }
-///===================================================================>
+
+  ///===================================================================>
   static final rightEditIcon = Container(
     padding: const EdgeInsets.only(right: 20),
     margin: const EdgeInsets.only(bottom: 10),
@@ -63,7 +70,7 @@ class Kwidgets {
     ),
   );
 
-   static final leftEditIcon = Container(
+  static final leftEditIcon = Container(
     padding: const EdgeInsets.only(left: 20),
     margin: const EdgeInsets.only(bottom: 10),
     color: const Color(0xFF2e3253).withOpacity(0.5),
