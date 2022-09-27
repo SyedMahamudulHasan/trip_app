@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/model/trip_model.dart';
 import 'package:trip_app/view/success_splash_screen.dart';
@@ -14,6 +16,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final TripInformation tripInfo = trip.tripInformation as TripInformation;
+    final action = Provider.of<DataController>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         padding:
@@ -119,13 +122,17 @@ class DetailScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    action.actionsOnTrips({
+                      "id": "a8a8758b-4434-49cb-b5fc-637488f217cd",
+                      "status": "approved"
+                    });
                     Navigator.pushReplacementNamed(context, SuccessScreen.id);
                   },
-                  child: Text('Confirm'),
+                  child: const  Text('Confirm'),
                 )
               ],
             )

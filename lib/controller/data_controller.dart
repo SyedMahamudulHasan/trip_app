@@ -10,7 +10,7 @@ class DataController extends ChangeNotifier {
   List<TripModel> trips = [];
   bool isLoading = true;
   final String geturl = '$baseUrl/all-trips';
-  final String postUrl = '$baseUrl/set-trip-status';
+  final String postUrl = '$baseUrl/set-trip-status/';
 
   Future<void> getAllTrips() async {
     isLoading = false;
@@ -29,4 +29,30 @@ class DataController extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<void> actionsOnTrips(dynamic data) async {
+    Response<dynamic>? response =
+        await connectionHelper.postData(postUrl, data);
+
+    if (response!.statusCode == 200) {
+      log('Data gache');
+    } else {
+      log('data jaynai');
+      log(response.statusCode.toString());
+    }
+  }
+
+ 
 }
+
+
+ // Map<String, dynamic> toJson() {
+    
+  //   final Map<String, dynamic> data =  Map<String, dynamic>();
+  //   data['request_trip_id'] = this.requestTripId;
+  //   if (this.tripInformation != null) {
+  //     data['trip_information'] = this.tripInformation!.toJson();
+  //   }
+  //   data['trip_status'] = this.tripStatus;
+  //   return data;
+  // }
