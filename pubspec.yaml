@@ -37,7 +37,9 @@ dependencies:
   #flutter_riverpod:
   lottie:
   flutter_feather_icons: ^2.0.0+1
-  auto_size_text: ^3.0.0 
+  auto_size_text: ^3.0.0
+  dio: ^4.0.6
+  provider: ^6.0.3 
 
 dev_dependencies:
   flutter_test:

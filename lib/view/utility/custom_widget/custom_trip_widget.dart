@@ -41,18 +41,18 @@ class CustomTripWidget extends StatelessWidget {
       key: ObjectKey(index),
       background: Kwidgets.leftEditIcon,
       secondaryBackground: Kwidgets.rightEditIcon,
-      onDismissed: (direction) {
-        log('Data dismissed');
-      },
+      onDismissed: (direction) {},
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
           showModalBottomSheet(
               context: context,
+              backgroundColor: Colors.white70.withOpacity(0.8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
               builder: ((context) {
                 return Container(
+                  margin: EdgeInsets.only(top: size.height * 0.04),
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,6 +121,7 @@ class CustomTripWidget extends StatelessWidget {
               }));
           return false;
         } else {
+          const SizedBox();
           return true;
         }
       },
@@ -134,7 +135,7 @@ class CustomTripWidget extends StatelessWidget {
             border: Border.all(color: Colors.black12),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.7),
+                color: Colors.blueGrey.withOpacity(0.7),
                 spreadRadius: 0,
                 blurRadius: 2,
                 offset: const Offset(1, 3),

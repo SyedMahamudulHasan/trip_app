@@ -3,7 +3,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:trip_app/view/details_screen.dart';
 import 'package:trip_app/view/utility/custom_widget/custom_trip_widget.dart';
 
-
 class DashBoardScreen extends StatefulWidget {
   static String id = '/dashBoard';
   const DashBoardScreen({Key? key}) : super(key: key);
