@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         routes: {
           SplashScreen.id: (context) => const SplashScreen(),
           DashBoardScreen.id: (context) => const DashBoardScreen(),
-          DetailScreen.id: (context) => const DetailScreen(),
+          //DetailScreen.id: (context) => const DetailScreen(),
           SuccessScreen.id: (context) => const SuccessScreen(),
         },
       ),

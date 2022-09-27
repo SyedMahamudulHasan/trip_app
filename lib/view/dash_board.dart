@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:trip_app/controller/data_controller.dart';
+import 'package:trip_app/model/trip_model.dart';
 import 'package:trip_app/view/details_screen.dart';
 import 'package:trip_app/view/utility/custom_widget/custom_trip_widget.dart';
 
@@ -28,6 +31,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<DataController>(context);
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Padding(
@@ -87,14 +91,24 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             Expanded(
               child: ListView.builder(
                 // shrinkWrap: true,
-                itemCount: 10,
+                itemCount: data.trips.length,
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, DetailScreen.id);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailScreen(
+                          trip: data.trips[index],
+                        ),
+                      ),
+                    );
                   },
                   child: CustomTripWidget(
                     size: size,
                     index: index,
+                    tripId: data.trips[index].requestTripId.toString(),
+                    tripInformation:
+                        data.trips[index].tripInformation as TripInformation,
                   ),
                 ),
               ),

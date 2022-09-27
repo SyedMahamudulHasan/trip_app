@@ -29,5 +29,7 @@ class DataController extends ChangeNotifier {
     } else {
       log('data didnot fetched');
     }
+
+    notifyListeners();
   }
 }

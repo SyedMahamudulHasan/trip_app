@@ -1,17 +1,22 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:trip_app/model/constants.dart';
+import 'package:trip_app/model/trip_model.dart';
 
 class CustomTripWidget extends StatelessWidget {
   const CustomTripWidget({
     Key? key,
     required this.size,
     required this.index,
+    required this.tripId,
+    required this.tripInformation,
   }) : super(key: key);
   final Size size;
   final int index;
+  final String tripId;
+
+  final TripInformation tripInformation;
 
   Widget tripDataWidget({size, icon, text, isButton = false}) {
     return Row(
@@ -58,24 +63,26 @@ class CustomTripWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Kwidgets.tripdataItem(
-                          dataType: 'Trip Id',
-                          data: '1234567890987654321',
-                          size: size),
+                          dataType: 'Trip Id', data: tripId, size: size),
                       Kwidgets.tripdataItem(
                           dataType: 'Name',
-                          data: 'Mahamudul Hasan',
+                          data: tripInformation.fullName,
+                          size: size),
+                            Kwidgets.tripdataItem(
+                          dataType: 'Phone number',
+                          data: tripInformation.phone,
                           size: size),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Kwidgets.tripdataItem(
                               dataType: 'Pickup',
-                              data: 'Barishal',
+                              data: tripInformation.pickupPoint,
                               size: size,
                               width: 0.4),
                           Kwidgets.tripdataItem(
                               dataType: 'Destination',
-                              data: 'Jessore',
+                              data: tripInformation.destination,
                               size: size,
                               width: 0.4),
                         ],
@@ -85,12 +92,12 @@ class CustomTripWidget extends StatelessWidget {
                         children: [
                           Kwidgets.tripdataItem(
                               dataType: 'Date',
-                              data: '26/9/2022',
+                              data: tripInformation.date,
                               size: size,
                               width: 0.4),
                           Kwidgets.tripdataItem(
                               dataType: 'Time',
-                              data: '4:28pm',
+                              data: tripInformation.time,
                               size: size,
                               width: 0.4),
                         ],
@@ -146,15 +153,17 @@ class CustomTripWidget extends StatelessWidget {
             tripDataWidget(
               size: size,
               icon: FeatherIcons.key,
-              text: "71f15860-5bc4-4ff6-a814-416e9dc501f4",
+              text: tripId,
             ),
             tripDataWidget(
                 size: size,
                 icon: FeatherIcons.user,
-                text: "User name",
+                text: tripInformation.fullName,
                 isButton: true),
             tripDataWidget(
-                size: size, icon: FeatherIcons.mapPin, text: "locations"),
+                size: size,
+                icon: FeatherIcons.mapPin,
+                text: tripInformation.address),
           ],
         ),
       ),

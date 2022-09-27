@@ -1,3 +1,4 @@
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -33,7 +34,12 @@ class Kwidgets {
               fontSize: 16,
             ),
           ),
-          AutoSizeText(
+          ///============================================> stops handled 
+         dataType == 'Stops' ? SizedBox(
+          child: Row(
+            children: (data as List).map((stop) => Text(stop.toString() + ", ")).toList(),
+          ),
+         ) : AutoSizeText(
             data,
             style: const TextStyle(
               fontFamily: 'urbanist',
