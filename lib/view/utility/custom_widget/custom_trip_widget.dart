@@ -5,8 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/model/trip_model.dart';
+import 'package:trip_app/view/success_splash_screen.dart';
 
-class CustomTripWidget extends StatelessWidget {
+class CustomTripWidget extends StatefulWidget {
   const CustomTripWidget({
     Key? key,
     required this.size,
@@ -18,6 +19,11 @@ class CustomTripWidget extends StatelessWidget {
   final int index;
   final TripModel trip;
 
+  @override
+  State<CustomTripWidget> createState() => _CustomTripWidgetState();
+}
+
+class _CustomTripWidgetState extends State<CustomTripWidget> {
   Widget tripDataWidget({size, icon, text, isButton = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,41 +40,59 @@ class CustomTripWidget extends StatelessWidget {
           ),
         ),
         isButton
-            ? IconButton(onPressed: () {}, icon: const Icon(FeatherIcons.check))
+            ? SizedBox(
+                height: 40,
+                width: 40,
+                child: Image.asset(
+                    statusIcon[widget.trip.tripStatus as String].toString()))
             : const SizedBox()
       ],
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     final TripInformation tripInformation =
-        trip.tripInformation as TripInformation;
+        widget.trip.tripInformation as TripInformation;
     final controller = Provider.of<DataController>(context, listen: false);
+    bool isPost = false;
     return Slidable(
-      key: ObjectKey(index),
-
+      key: ObjectKey(widget.index),
+      closeOnScroll: false,
       startActionPane: ActionPane(
+        dragDismissible: false,
         motion: const ScrollMotion(),
-        // dismissible: DismissiblePane(onDismissed: (){}),
+        // dismissible: DismissiblePane(onDismissed: () {
+
+        // }),
         children: [
           // A SlidableAction can have an icon and/or a label.
           SlidableAction(
-            onPressed: ((context) {
-              controller.changeTripStatus({
-                "id": trip.requestTripId.toString(),
+            onPressed: ((context) async {
+              isPost = await controller.changeTripStatus({
+                "id": widget.trip.requestTripId.toString(),
                 "status": "denied",
               });
+
+              // showDialog(
+              //     context: context,
+              //     builder: ((context) => AlertDialog(
+              //           title: Text('ses'),
+              //         )));
             }),
             backgroundColor: Colors.redAccent, //
             foregroundColor: Colors.white,
             icon: FeatherIcons.xCircle,
             label: 'Cancel',
           ),
+
           SlidableAction(
             onPressed: ((context) {
-              controller.changeTripStatus(
-                  {"id": trip.requestTripId.toString(), "status": "approved"});
+              controller.changeTripStatus({
+                "id": widget.trip.requestTripId.toString(),
+                "status": "approved"
+              });
             }),
             backgroundColor: const Color(0xFF21B7CA),
             foregroundColor: Colors.white,
@@ -79,13 +103,14 @@ class CustomTripWidget extends StatelessWidget {
       ),
 
       // The end action pane is the one at the right or the bottom side.
+      //==========================================================>conpleted
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
             onPressed: ((context) {
               controller.changeTripStatus({
-                "id": trip.requestTripId.toString(),
+                "id": widget.trip.requestTripId.toString(),
                 "status": "completed",
               });
             }),
@@ -115,17 +140,17 @@ class CustomTripWidget extends StatelessWidget {
         child: Column(
           children: [
             tripDataWidget(
-              size: size,
+              size: widget.size,
               icon: FeatherIcons.key,
-              text: trip.requestTripId,
+              text: widget.trip.requestTripId,
             ),
             tripDataWidget(
-                size: size,
+                size: widget.size,
                 icon: FeatherIcons.user,
                 text: tripInformation.fullName,
                 isButton: true),
             tripDataWidget(
-                size: size,
+                size: widget.size,
                 icon: FeatherIcons.mapPin,
                 text: tripInformation.address),
           ],

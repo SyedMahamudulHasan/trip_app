@@ -30,19 +30,18 @@ class DataController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> changeTripStatus(dynamic data) async {
+  Future<bool> changeTripStatus(dynamic data) async {
+    //isLoading = true;
     Response<dynamic>? response =
         await connectionHelper.postData(postUrl, data);
 
     if (response!.statusCode == 200) {
       log('Data gache');
+      return true;
     } else {
       log('data jaynai');
       log(response.statusCode.toString());
+      return false;
     }
   }
-
- 
 }
-
-

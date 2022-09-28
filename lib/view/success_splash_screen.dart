@@ -1,50 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:trip_app/view/dash_board.dart';
 
-class SuccessScreen extends StatefulWidget {
-  const SuccessScreen({Key? key}) : super(key: key);
+class SuccessScreen extends StatelessWidget {
+  const SuccessScreen({Key? key, required this.isPost}) : super(key: key);
   static String id = '/success';
-
-  @override
-  State<SuccessScreen> createState() => _SuccessScreenState();
-}
-
-class _SuccessScreenState extends State<SuccessScreen>
-    with TickerProviderStateMixin {
-  late final AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(vsync: this);
-
-    Future.delayed(const Duration(seconds: 2)).then(
-        (value) => Navigator.pushReplacementNamed(context, DashBoardScreen.id));
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  final bool isPost;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+        body: Visibility(
+      visible: true,
+      replacement: const CircularProgressIndicator(),
+      child: ListView(
         children: [
-          Lottie.asset(
-            'assets/json/success.json',
-            controller: _controller,
-            onLoaded: (composition) {
-              // Configure the AnimationController with the duration of the
-              // Lottie file and start the animation.
-              _controller
-                ..duration = composition.duration
-                ..forward();
-            },
+          Image.asset(
+            isPost ? 'assets/gif/splash.gif' : 'assets/gif/splash.gif',
           ),
           const Center(
             child: Text(
@@ -57,6 +27,6 @@ class _SuccessScreenState extends State<SuccessScreen>
           )
         ],
       ),
-    );
+    ));
   }
 }

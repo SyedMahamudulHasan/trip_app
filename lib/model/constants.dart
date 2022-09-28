@@ -4,6 +4,14 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 const String baseUrl = 'http://0c87-103-7-249-41.ngrok.io/api/v1';
 
+  Map<String, String> statusIcon = {
+    "waiting": "assets/icons/wait.png",
+    "approved": "assets/icons/approved.png",
+    "denied": "assets/icons/rejected.png",
+    "completed": "assets/icons/completed.png",
+  };
+
+
 class Kwidgets {
   static Container tripdataItem({dataType, data, size, width = 1}) {
     return Container(
@@ -46,7 +54,7 @@ class Kwidgets {
                   ),
                 )
               : AutoSizeText(
-                  data,
+                  data ?? "",
                   style: const TextStyle(
                     fontFamily: 'urbanist',
                     //fontWeight: FontWeight.w400,
