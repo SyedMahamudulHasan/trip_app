@@ -12,6 +12,9 @@ const String baseUrl = 'https://75f4-103-161-71-115.in.ngrok.io/api/v1';
   };
 
 
+  
+
+ 
 class Kwidgets {
   static Container tripdataItem({dataType, data, size, width = 1}) {
     return Container(

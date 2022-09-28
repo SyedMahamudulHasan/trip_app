@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/trip_model.dart';
 import 'package:trip_app/view/details_bottomSheet.dart';
-import 'package:trip_app/view/details_screen.dart';
+
 import 'package:trip_app/view/utility/custom_widget/custom_trip_widget.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -30,10 +30,41 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     super.dispose();
   }
 
+  List<TripModel> searchResult = [];
+
+  void filterSearchResults(String query) {
+    List<TripModel> searchList = [];
+
+    searchList
+        .addAll(Provider.of<DataController>(context, listen: false).trips);
+
+    if (query.isNotEmpty) {
+      List<TripModel> dummyListData = [];
+      searchList.forEach((item) {
+        if (item.tripInformation!.fullName!.toLowerCase().contains(
+              query.toLowerCase(),
+            )) {
+          print(item.tripInformation!.fullName);
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        searchResult.clear();
+        searchResult.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        searchResult.clear();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<DataController>(context);
     final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Padding(
         padding:
@@ -59,6 +90,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               ),
               child: TextField(
                 controller: _controller,
+                onChanged: filterSearchResults,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search),
                   border: InputBorder.none,
@@ -90,39 +122,52 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
             ///==============================================> list of trips
             Expanded(
-              child: Visibility(
-                visible: data.isLoading,
-                replacement: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                child: ListView.builder(
-                  // shrinkWrap: true,
-                  itemCount: data.trips.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {
-                        detailsBottomSheet(context, size, data.trips[index]);
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await Provider.of<DataController>(context, listen: false)
+                      .getAllTrips();
+                },
+                child: Visibility(
+                  visible: data.isLoading,
+                  replacement: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  child: ListView.builder(
+                    // shrinkWrap: true,
+                    itemCount: searchResult.isEmpty
+                        ? data.trips.length
+                        : searchResult.length,
+                    itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          detailsBottomSheet(
+                              context,
+                              size,
+                              searchResult.isEmpty
+                                  ? data.trips[index]
+                                  : searchResult[index]);
 
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => DetailScreen(
-                        //       trip: data.trips[index],
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                      child: Column(
-                        children: [
-                          CustomTripWidget(
-                            size: size,
-                            index: index,
-                            trip: data.trips[index],
-                          ),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          )
-                        ],
-                      )),
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => DetailScreen(
+                          //       trip: data.trips[index],
+                          //     ),
+                          //   ),
+                          // );
+                        },
+                        child: Column(
+                          children: [
+                            CustomTripWidget(
+                              size: size,
+                              index: index,
+                              trip: data.trips[index],
+                            ),
+                            SizedBox(
+                              height: size.width * 0.02,
+                            )
+                          ],
+                        )),
+                  ),
                 ),
               ),
             ),
