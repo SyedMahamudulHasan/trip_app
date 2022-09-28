@@ -126,10 +126,10 @@ class DetailScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    action.actionsOnTrips({
-                      "id": "a8a8758b-4434-49cb-b5fc-637488f217cd",
-                      "status": "approved"
-                    });
+                    // action.actionsOnTrips({
+                    //   "id": "a8a8758b-4434-49cb-b5fc-637488f217cd",
+                    //   "status": "approved"
+                    // });
                     Navigator.pushReplacementNamed(context, SuccessScreen.id);
                   },
                   child: const  Text('Confirm'),

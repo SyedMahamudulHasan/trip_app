@@ -30,7 +30,7 @@ class DataController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> actionsOnTrips(dynamic data) async {
+  Future<void> changeTripStatus(dynamic data) async {
     Response<dynamic>? response =
         await connectionHelper.postData(postUrl, data);
 

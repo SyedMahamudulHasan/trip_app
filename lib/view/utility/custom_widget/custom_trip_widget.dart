@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/model/trip_model.dart';
 
@@ -9,14 +11,12 @@ class CustomTripWidget extends StatelessWidget {
     Key? key,
     required this.size,
     required this.index,
-    required this.tripId,
-    required this.tripInformation,
+    required this.trip,
   }) : super(key: key);
+
   final Size size;
   final int index;
-  final String tripId;
-
-  final TripInformation tripInformation;
+  final TripModel trip;
 
   Widget tripDataWidget({size, icon, text, isButton = false}) {
     return Row(
@@ -42,6 +42,9 @@ class CustomTripWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TripInformation tripInformation =
+        trip.tripInformation as TripInformation;
+    final controller = Provider.of<DataController>(context, listen: false);
     return Slidable(
       key: ObjectKey(index),
 
@@ -51,15 +54,23 @@ class CustomTripWidget extends StatelessWidget {
         children: [
           // A SlidableAction can have an icon and/or a label.
           SlidableAction(
-            onPressed: ((context) {}),
+            onPressed: ((context) {
+              controller.changeTripStatus({
+                "id": trip.requestTripId.toString(),
+                "status": "denied",
+              });
+            }),
             backgroundColor: Colors.redAccent, //
             foregroundColor: Colors.white,
             icon: FeatherIcons.xCircle,
             label: 'Cancel',
           ),
           SlidableAction(
-            onPressed: ((context) {}),
-            backgroundColor: Color(0xFF21B7CA),
+            onPressed: ((context) {
+              controller.changeTripStatus(
+                  {"id": trip.requestTripId.toString(), "status": "approved"});
+            }),
+            backgroundColor: const Color(0xFF21B7CA),
             foregroundColor: Colors.white,
             icon: Icons.check,
             label: 'Confirm',
@@ -72,7 +83,12 @@ class CustomTripWidget extends StatelessWidget {
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
-            onPressed: ((context) {}),
+            onPressed: ((context) {
+              controller.changeTripStatus({
+                "id": trip.requestTripId.toString(),
+                "status": "completed",
+              });
+            }),
             backgroundColor: const Color(0xFF2e3253).withOpacity(0.5),
             foregroundColor: Colors.white,
             icon: Icons.check_circle_outline,
@@ -101,7 +117,7 @@ class CustomTripWidget extends StatelessWidget {
             tripDataWidget(
               size: size,
               icon: FeatherIcons.key,
-              text: tripId,
+              text: trip.requestTripId,
             ),
             tripDataWidget(
                 size: size,
@@ -118,7 +134,3 @@ class CustomTripWidget extends StatelessWidget {
     );
   }
 }
-
-
-
-

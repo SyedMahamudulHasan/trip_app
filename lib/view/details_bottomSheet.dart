@@ -6,7 +6,8 @@ import '../model/trip_model.dart';
 
 detailsBottomSheet(context, size, trip) {
   showModalBottomSheet(
-      backgroundColor: Color.fromARGB(255, 216, 216, 250).withOpacity(0.5),
+      backgroundColor:
+          const Color.fromARGB(255, 216, 216, 250).withOpacity(0.5),
       isScrollControlled: true,
       context: context,
       builder: ((context) {
@@ -18,6 +19,18 @@ detailsBottomSheet(context, size, trip) {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
               height: size.height * 0.06,
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                FeatherIcons.chevronLeft,
+                size: 28,
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.02,
             ),
             Kwidgets.tripdataItem(
                 dataType: 'Trip id', data: trip.requestTripId, size: size),

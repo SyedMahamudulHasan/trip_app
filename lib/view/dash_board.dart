@@ -116,9 +116,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           CustomTripWidget(
                             size: size,
                             index: index,
-                            tripId: data.trips[index].requestTripId.toString(),
-                            tripInformation: data.trips[index].tripInformation
-                                as TripInformation,
+                            trip: data.trips[index],
                           ),
                           SizedBox(
                             height: size.width * 0.02,
