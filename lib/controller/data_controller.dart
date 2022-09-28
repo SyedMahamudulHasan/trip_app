@@ -46,13 +46,3 @@ class DataController extends ChangeNotifier {
 }
 
 
- // Map<String, dynamic> toJson() {
-    
-  //   final Map<String, dynamic> data =  Map<String, dynamic>();
-  //   data['request_trip_id'] = this.requestTripId;
-  //   if (this.tripInformation != null) {
-  //     data['trip_information'] = this.tripInformation!.toJson();
-  //   }
-  //   data['trip_status'] = this.tripStatus;
-  //   return data;
-  // }

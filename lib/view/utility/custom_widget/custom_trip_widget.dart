@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/model/trip_model.dart';
 
@@ -41,96 +42,44 @@ class CustomTripWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
+    return Slidable(
       key: ObjectKey(index),
-      background: Kwidgets.leftEditIcon,
-      secondaryBackground: Kwidgets.rightEditIcon,
-      onDismissed: (direction) {},
-      confirmDismiss: (direction) async {
-        if (direction == DismissDirection.startToEnd) {
-          showModalBottomSheet(
-              context: context,
-              backgroundColor: Colors.white70.withOpacity(0.8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              builder: ((context) {
-                return Container(
-                  margin: EdgeInsets.only(top: size.height * 0.04),
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Kwidgets.tripdataItem(
-                          dataType: 'Trip Id', data: tripId, size: size),
-                      Kwidgets.tripdataItem(
-                          dataType: 'Name',
-                          data: tripInformation.fullName,
-                          size: size),
-                      Kwidgets.tripdataItem(
-                          dataType: 'Phone number',
-                          data: tripInformation.phone,
-                          size: size),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Kwidgets.tripdataItem(
-                              dataType: 'Pickup',
-                              data: tripInformation.pickupPoint,
-                              size: size,
-                              width: 0.4),
-                          Kwidgets.tripdataItem(
-                              dataType: 'Destination',
-                              data: tripInformation.destination,
-                              size: size,
-                              width: 0.4),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Kwidgets.tripdataItem(
-                              dataType: 'Date',
-                              data: tripInformation.date,
-                              size: size,
-                              width: 0.4),
-                          Kwidgets.tripdataItem(
-                              dataType: 'Time',
-                              data: tripInformation.time,
-                              size: size,
-                              width: 0.4),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Confirm'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Completed'),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
-              }));
-          return false;
-        } else {
-          const SizedBox();
-          return true;
-        }
-      },
+
+      startActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        // dismissible: DismissiblePane(onDismissed: (){}),
+        children: [
+          // A SlidableAction can have an icon and/or a label.
+          SlidableAction(
+            onPressed: ((context) {}),
+            backgroundColor: Colors.redAccent, //
+            foregroundColor: Colors.white,
+            icon: FeatherIcons.xCircle,
+            label: 'Cancel',
+          ),
+          SlidableAction(
+            onPressed: ((context) {}),
+            backgroundColor: Color(0xFF21B7CA),
+            foregroundColor: Colors.white,
+            icon: Icons.check,
+            label: 'Confirm',
+          ),
+        ],
+      ),
+
+      // The end action pane is the one at the right or the bottom side.
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            onPressed: ((context) {}),
+            backgroundColor: const Color(0xFF2e3253).withOpacity(0.5),
+            foregroundColor: Colors.white,
+            icon: Icons.check_circle_outline,
+            label: 'Completed',
+          ),
+        ],
+      ),
       child: Container(
         padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.only(bottom: 10),
@@ -169,3 +118,84 @@ class CustomTripWidget extends StatelessWidget {
     );
   }
 }
+
+
+
+
+// showModalBottomSheet(
+//               context: context,
+//               backgroundColor: Colors.white70.withOpacity(0.8),
+//               shape: RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.circular(10.0),
+//               ),
+//               builder: ((context) {
+//                 return Container(
+//                   margin: EdgeInsets.only(top: size.height * 0.04),
+//                   padding: const EdgeInsets.all(16),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Kwidgets.tripdataItem(
+//                           dataType: 'Trip Id', data: tripId, size: size),
+//                       Kwidgets.tripdataItem(
+//                           dataType: 'Name',
+//                           data: tripInformation.fullName,
+//                           size: size),
+//                       Kwidgets.tripdataItem(
+//                           dataType: 'Phone number',
+//                           data: tripInformation.phone,
+//                           size: size),
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Kwidgets.tripdataItem(
+//                               dataType: 'Pickup',
+//                               data: tripInformation.pickupPoint,
+//                               size: size,
+//                               width: 0.4),
+//                           Kwidgets.tripdataItem(
+//                               dataType: 'Destination',
+//                               data: tripInformation.destination,
+//                               size: size,
+//                               width: 0.4),
+//                         ],
+//                       ),
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Kwidgets.tripdataItem(
+//                               dataType: 'Date',
+//                               data: tripInformation.date,
+//                               size: size,
+//                               width: 0.4),
+//                           Kwidgets.tripdataItem(
+//                               dataType: 'Time',
+//                               data: tripInformation.time,
+//                               size: size,
+//                               width: 0.4),
+//                         ],
+//                       ),
+//                       SizedBox(
+//                         height: size.height * 0.05,
+//                       ),
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                         children: [
+//                           ElevatedButton(
+//                             onPressed: () {
+//                               Navigator.pop(context);
+//                             },
+//                             child: const Text('Confirm'),
+//                           ),
+//                           ElevatedButton(
+//                             onPressed: () {
+//                               Navigator.pop(context);
+//                             },
+//                             child: const Text('Completed'),
+//                           ),
+//                         ],
+//                       )
+//                     ],
+//                   ),
+//                 );
+//               }));

@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
-const String baseUrl = 'https://4c3e-103-7-249-41.ngrok.io/api/v1';
+const String baseUrl = 'http://0c87-103-7-249-41.ngrok.io/api/v1';
 
 class Kwidgets {
   static Container tripdataItem({dataType, data, size, width = 1}) {
