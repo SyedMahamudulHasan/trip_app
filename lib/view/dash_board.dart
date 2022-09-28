@@ -65,24 +65,25 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   ///===================================================> filterSearchResulrs
   List<TripModel> filteredList = [];
   bool isFiltered = true;
-  
+
   filterTripList() {
     List<TripModel> dummyList = [];
     List<TripModel> searchList = [];
     searchList
         .addAll(Provider.of<DataController>(context, listen: false).trips);
 
-    if (filteredList.isEmpty) {
-      for (var element in searchList) {
-        if (element.tripStatus!.contains('waiting')) {
-          dummyList.add(element);
-        }
+    for (var element in searchList) {
+      if (element.tripStatus!.contains('waiting')) {
+        dummyList.add(element);
       }
-      setState(() {
-        filteredList.addAll(dummyList);
-        isFiltered = !isFiltered;
-      });
     }
+
+    setState(() {
+      filteredList.clear();
+      filteredList.addAll(dummyList);
+      isFiltered = !isFiltered;
+    });
+
     log('trip list filtered');
     log(isFiltered.toString());
   }
