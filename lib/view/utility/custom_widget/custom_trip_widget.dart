@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/model/trip_model.dart';
-import 'package:trip_app/view/success_splash_screen.dart';
 
 class CustomTripWidget extends StatefulWidget {
   const CustomTripWidget({

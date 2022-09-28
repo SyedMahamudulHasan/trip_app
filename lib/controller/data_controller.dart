@@ -37,6 +37,7 @@ class DataController extends ChangeNotifier {
 
     if (response!.statusCode == 200) {
       log('Data gache');
+      getAllTrips();
       return true;
     } else {
       log('data jaynai');

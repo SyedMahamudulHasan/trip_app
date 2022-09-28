@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
-const String baseUrl = 'http://0c87-103-7-249-41.ngrok.io/api/v1';
+const String baseUrl = 'https://75f4-103-161-71-115.in.ngrok.io/api/v1';
 
   Map<String, String> statusIcon = {
     "waiting": "assets/icons/wait.png",
