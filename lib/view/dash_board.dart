@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/trip_model.dart';
+import 'package:trip_app/view/details_bottomSheet.dart';
 import 'package:trip_app/view/details_screen.dart';
 import 'package:trip_app/view/utility/custom_widget/custom_trip_widget.dart';
 
@@ -89,35 +90,44 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
             ///==============================================> list of trips
             Expanded(
-                child: Visibility(
-              visible: data.isLoading,
-              replacement: const Center(
-                child: CircularProgressIndicator(),
-              ),
-              child: ListView.builder(
-                // shrinkWrap: true,
-                itemCount: data.trips.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailScreen(
-                          trip: data.trips[index],
-                        ),
-                      ),
-                    );
-                  },
-                  child: CustomTripWidget(
-                    size: size,
-                    index: index,
-                    tripId: data.trips[index].requestTripId.toString(),
-                    tripInformation:
-                        data.trips[index].tripInformation as TripInformation,
-                  ),
+              child: Visibility(
+                visible: data.isLoading,
+                replacement: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                child: ListView.builder(
+                  // shrinkWrap: true,
+                  itemCount: data.trips.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        detailsBottomSheet(context, size, data.trips[index]);
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => DetailScreen(
+                        //       trip: data.trips[index],
+                        //     ),
+                        //   ),
+                        // );
+                      },
+                      child: Column(
+                        children: [
+                          CustomTripWidget(
+                            size: size,
+                            index: index,
+                            tripId: data.trips[index].requestTripId.toString(),
+                            tripInformation: data.trips[index].tripInformation
+                                as TripInformation,
+                          ),
+                          SizedBox(
+                            height: size.width * 0.02,
+                          )
+                        ],
+                      )),
                 ),
               ),
-            )),
+            ),
           ],
         ),
       ),
