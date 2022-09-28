@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +34,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   List<TripModel> searchResult = [];
 
+  ///===================================================> SearchResulrs
   void filterSearchResults(String query) {
     List<TripModel> searchList = [];
 
@@ -40,14 +43,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
     if (query.isNotEmpty) {
       List<TripModel> dummyListData = [];
-      searchList.forEach((item) {
-        if (item.tripInformation!.fullName!.toLowerCase().contains(
-              query.toLowerCase(),
-            )) {
-          print(item.tripInformation!.fullName);
+      for (var item in searchList) {
+        if (item.tripInformation!.fullName!
+            .toLowerCase()
+            .contains(query.toLowerCase())) {
           dummyListData.add(item);
         }
-      });
+      }
       setState(() {
         searchResult.clear();
         searchResult.addAll(dummyListData);
@@ -58,6 +60,31 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         searchResult.clear();
       });
     }
+  }
+
+  ///===================================================> filterSearchResulrs
+  List<TripModel> filteredList = [];
+  bool isFiltered = true;
+  
+  filterTripList() {
+    List<TripModel> dummyList = [];
+    List<TripModel> searchList = [];
+    searchList
+        .addAll(Provider.of<DataController>(context, listen: false).trips);
+
+    if (filteredList.isEmpty) {
+      for (var element in searchList) {
+        if (element.tripStatus!.contains('waiting')) {
+          dummyList.add(element);
+        }
+      }
+      setState(() {
+        filteredList.addAll(dummyList);
+        isFiltered = !isFiltered;
+      });
+    }
+    log('trip list filtered');
+    log(isFiltered.toString());
   }
 
   @override
@@ -114,7 +141,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    filterTripList();
+                    //filteredList.clear();
+                  },
                   icon: const Icon(FeatherIcons.filter),
                 ),
               ],
@@ -134,17 +164,27 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                   child: ListView.builder(
                     // shrinkWrap: true,
-                    itemCount: searchResult.isEmpty
-                        ? data.trips.length
-                        : searchResult.length,
+                    itemCount: isFiltered
+                        ? (searchResult.isEmpty
+                            ? data.trips.length
+                            : searchResult.length)
+                        : (filteredList.isEmpty
+                            ? data.trips.length
+                            : filteredList.length),
+
                     itemBuilder: (context, index) => GestureDetector(
                         onTap: () {
                           detailsBottomSheet(
-                              context,
-                              size,
-                              searchResult.isEmpty
-                                  ? data.trips[index]
-                                  : searchResult[index]);
+                            context,
+                            size,
+                            isFiltered
+                                ? (searchResult.isEmpty
+                                    ? data.trips[index]
+                                    : searchResult[index])
+                                : (filteredList.isEmpty
+                                    ? data.trips[index]
+                                    : filteredList[index]),
+                          );
 
                           // Navigator.push(
                           //   context,
@@ -155,12 +195,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           //   ),
                           // );
                         },
+                        ////=====================================>  trip widgets
                         child: Column(
                           children: [
                             CustomTripWidget(
                               size: size,
                               index: index,
-                              trip: data.trips[index],
+                              trip: isFiltered
+                                  ? (searchResult.isEmpty
+                                      ? data.trips[index]
+                                      : searchResult[index])
+                                  : (filteredList.isEmpty
+                                      ? data.trips[index]
+                                      : filteredList[index]),
                             ),
                             SizedBox(
                               height: size.width * 0.02,
