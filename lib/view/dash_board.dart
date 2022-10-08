@@ -65,6 +65,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   ///===================================================> filterSearchResulrs
   List<TripModel> filteredList = [];
   bool isFiltered = true;
+  int statusNumber = 0;
 
   filterTripList() {
     List<TripModel> dummyList = [];
@@ -72,17 +73,57 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     searchList
         .addAll(Provider.of<DataController>(context, listen: false).trips);
 
-    for (var element in searchList) {
-      if (element.tripStatus!.contains('waiting')) {
-        dummyList.add(element);
+    if (statusNumber >= 0 && statusNumber <= 3) {
+      setState(() {
+        isFiltered = false;
+      });
+      if (statusNumber == 0) {
+        dummyList.clear();
+        for (var element in searchList) {
+          if (element.tripStatus!.contains('waiting')) {
+            dummyList.add(element);
+          }
+        }
+      } else if (statusNumber == 1) {
+        dummyList.clear();
+        for (var element in searchList) {
+          if (element.tripStatus!.contains('approved')) {
+            dummyList.add(element);
+          }
+        }
+      } else if (statusNumber == 2) {
+        dummyList.clear();
+        for (var element in searchList) {
+          if (element.tripStatus!.contains('denied')) {
+            dummyList.add(element);
+          }
+        }
+      } else {
+        dummyList.clear();
+        for (var element in searchList) {
+          if (element.tripStatus!.contains('completed')) {
+            dummyList.add(element);
+          }
+        }
       }
+      setState(() {
+        filteredList.clear();
+        filteredList.addAll(dummyList);
+      });
+      statusNumber++;
+      print(statusNumber);
+    } else {
+      statusNumber = 0;
+      setState(() {
+        isFiltered = !isFiltered;
+      });
     }
 
-    setState(() {
-      filteredList.clear();
-      filteredList.addAll(dummyList);
-      isFiltered = !isFiltered;
-    });
+    // setState(() {
+    //   filteredList.clear();
+    //   filteredList.addAll(dummyList);
+    //   isFiltered = !isFiltered;
+    // });
 
     log('trip list filtered');
     log(isFiltered.toString());
