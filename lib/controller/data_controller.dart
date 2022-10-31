@@ -2,12 +2,14 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_app/controller/connection_helper.dart';
+import 'package:trip_app/model/driver_model.dart';
 import '../model/constants.dart';
 import '../model/trip_model.dart';
 
 class DataController extends ChangeNotifier {
   ConnectionHelper connectionHelper = ConnectionHelper();
   List<TripModel> trips = [];
+  List<DriverModel> driver_list = [];
   bool isLoading = true;
   final String geturl = '$baseUrl/all-trips';
   final String postUrl = '$baseUrl/set-trip-status/';
@@ -44,5 +46,25 @@ class DataController extends ChangeNotifier {
       log(response.statusCode.toString());
       return false;
     }
+  }
+
+  Future<void> getDriverList() async {
+    isLoading = false;
+
+    Response<dynamic>? response = await connectionHelper.getData("");
+
+    if (response != null) {
+      try {
+        if (response.statusCode == 200) {
+          driver_list = (response.data as List)
+              .map((e) => DriverModel.fromJson(e))
+              .toList();
+          isLoading = true;
+        }
+      } catch (e) {
+        rethrow;
+      }
+    }
+    notifyListeners();
   }
 }
