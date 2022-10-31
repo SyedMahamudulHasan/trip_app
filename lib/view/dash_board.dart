@@ -178,7 +178,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           detailsBottomSheet(
                             context,
                             size,
-                            data.trips[index].requestTripId,
                             isFiltered
                                 ? (searchResult.isEmpty
                                     ? data.trips[index]
@@ -186,6 +185,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 : (filteredList.isEmpty
                                     ? data.trips[index]
                                     : filteredList[index]),
+                            data.trips[index].requestTripId,
                           );
 
                           // Navigator.push(

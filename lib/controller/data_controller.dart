@@ -55,17 +55,13 @@ class DataController extends ChangeNotifier {
         await connectionHelper.getData("$baseUrl/get-nearest-drivers/$tripId/");
 
     if (response != null) {
-      try {
-        if (response.statusCode == 200) {
-          driver_list = (response.data as List)
-              .map((e) => DriverModel.fromJson(e))
-              .toList();
-          log("==============>>>>>> driver data fetched");
-          isLoading = true;
-          notifyListeners();
-        }
-      } catch (e) {
-        rethrow;
+      if (response.statusCode == 200) {
+        driver_list = (response.data as List)
+            .map((e) => DriverModel.fromJson(e))
+            .toList();
+        log("==============>>>>>> driver data fetched");
+        isLoading = true;
+        notifyListeners();
       }
     }
     notifyListeners();
