@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: Color(0xFFCAC9FD),
             visualDensity: VisualDensity.adaptivePlatformDensity),
-        initialRoute: DriverListScreen.id,
+        initialRoute: SplashScreen.id,
         routes: {
           DriverListScreen.id: (context) => const DriverListScreen(),
           SplashScreen.id: (context) => const SplashScreen(),

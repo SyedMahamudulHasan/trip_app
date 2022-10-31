@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:trip_app/view/driver_list.dart';
 
 import '../model/constants.dart';
 import '../model/trip_model.dart';
@@ -123,6 +124,10 @@ detailsBottomSheet(context, size, trip) {
                     //   "status": "approved"
                     // });
                     // Navigator.pushReplacementNamed(context, SuccessScreen.id);
+                    Navigator.pushNamed(
+                      context,
+                      DriverListScreen.id,
+                    );
                   },
                   child: const Text('Assign Drive'),
                 )

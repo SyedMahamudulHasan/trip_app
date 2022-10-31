@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:trip_app/view/utility/phoneCall_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DriverListScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                     ),
                     IconButton(
                       onPressed: () {
-                        launchUrl("tel://21213123123" as Uri);
+                        launchPhoneDialer("+8801727493053");
                       },
                       icon: const Icon(Icons.call),
                     ),
