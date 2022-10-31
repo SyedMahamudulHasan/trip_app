@@ -105,7 +105,7 @@ detailsBottomSheet(context, size, trip) {
 
             ///=========================================> buttons
             SizedBox(
-              height: size.height * 0.06,
+              height: size.height * 0.05,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/view/dash_board.dart';
 import 'package:trip_app/view/details_screen.dart';
+import 'package:trip_app/view/driver_list.dart';
 import 'package:trip_app/view/splash_scree.dart';
 import 'package:trip_app/view/success_splash_screen.dart';
 
@@ -25,12 +26,13 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: Color(0xFFCAC9FD),
             visualDensity: VisualDensity.adaptivePlatformDensity),
-        initialRoute: SplashScreen.id,
+        initialRoute: DriverListScreen.id,
         routes: {
+          DriverListScreen.id: (context) => const DriverListScreen(),
           SplashScreen.id: (context) => const SplashScreen(),
           DashBoardScreen.id: (context) => const DashBoardScreen(),
           //DetailScreen.id: (context) => const DetailScreen(),
-         // SuccessScreen.id: (context) => const SuccessScreen(),
+          // SuccessScreen.id: (context) => const SuccessScreen(),
         },
       ),
     );
