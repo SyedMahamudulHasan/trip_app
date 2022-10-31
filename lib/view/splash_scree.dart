@@ -22,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     final postdata = Provider.of<DataController>(context, listen: false);
     postdata.getAllTrips();
+    postdata.getDriverList();
 
     _controller = AnimationController(vsync: this);
 
