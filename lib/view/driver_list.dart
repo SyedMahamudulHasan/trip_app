@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DriverListScreen extends StatefulWidget {
   const DriverListScreen({super.key});
@@ -32,12 +33,14 @@ class _DriverListScreenState extends State<DriverListScreen> {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.male_outlined),
-                    ),
                     const Icon(
-                      Icons.call,
+                      Icons.male_outlined,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        launchUrl("tel://21213123123" as Uri);
+                      },
+                      icon: const Icon(Icons.call),
                     ),
                   ],
                 ),
