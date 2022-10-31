@@ -107,27 +107,27 @@ detailsBottomSheet(context, size, trip) {
             SizedBox(
               height: size.height * 0.06,
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //   children: [
-            //     ElevatedButton(
-            //       onPressed: () {
-            //         Navigator.pop(context);
-            //       },
-            //       child: const Text('Cancel'),
-            //     ),
-            //     ElevatedButton(
-            //       onPressed: () {
-            //         action.actionsOnTrips({
-            //           "id": "a8a8758b-4434-49cb-b5fc-637488f217cd",
-            //           "status": "approved"
-            //         });
-            //         Navigator.pushReplacementNamed(context, SuccessScreen.id);
-            //       },
-            //       child: const  Text('Confirm'),
-            //     )
-            //   ],
-            // )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // action.actionsOnTrips({
+                    //   "id": "a8a8758b-4434-49cb-b5fc-637488f217cd",
+                    //   "status": "approved"
+                    // });
+                    // Navigator.pushReplacementNamed(context, SuccessScreen.id);
+                  },
+                  child: const Text('Assign Drive'),
+                )
+              ],
+            )
           ]),
         );
       }));

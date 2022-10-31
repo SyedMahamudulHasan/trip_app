@@ -36,10 +36,10 @@ class Kwidgets {
         children: [
           Text(
             dataType + ":  ",
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'urbanist',
               fontWeight: FontWeight.w700,
-              fontSize: 16,
+              fontSize: size.width * 0.035,
             ),
           ),
 
