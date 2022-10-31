@@ -108,7 +108,6 @@
 //       };
 // }
 
-
 class TripModel {
   String? requestTripId;
   TripInformation? tripInformation;
@@ -119,13 +118,13 @@ class TripModel {
   TripModel.fromJson(Map<String, dynamic> json) {
     requestTripId = json['request_trip_id'];
     tripInformation = json['trip_information'] != null
-        ?  TripInformation.fromJson(json['trip_information'])
+        ? TripInformation.fromJson(json['trip_information'])
         : null;
     tripStatus = json['trip_status'];
   }
 
   // Map<String, dynamic> toJson() {
-    
+
   //   final Map<String, dynamic> data =  Map<String, dynamic>();
   //   data['request_trip_id'] = this.requestTripId;
   //   if (this.tripInformation != null) {
@@ -153,22 +152,23 @@ class TripInformation {
   String? time;
   List<String>? stops;
 
-  TripInformation(
-      {this.fullName,
-      this.email,
-      this.phone,
-      this.address,
-      this.webUrl,
-      this.vehicleType,
-      this.numberOfPeople,
-      this.luggage,
-      this.maxWeight,
-      this.childSeat,
-      this.pickupPoint,
-      this.destination,
-      this.date,
-      this.time,
-      this.stops});
+  TripInformation({
+    this.fullName,
+    this.email,
+    this.phone,
+    this.address,
+    this.webUrl,
+    this.vehicleType,
+    this.numberOfPeople,
+    this.luggage,
+    this.maxWeight,
+    this.childSeat,
+    this.pickupPoint,
+    this.destination,
+    this.date,
+    this.time,
+    this.stops,
+  });
 
   TripInformation.fromJson(Map<String, dynamic> json) {
     fullName = json['full_name'];
@@ -208,4 +208,3 @@ class TripInformation {
   //   return data;
   // }
 }
-
