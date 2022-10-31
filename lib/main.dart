@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity),
         initialRoute: SplashScreen.id,
         routes: {
-          DriverListScreen.id: (context) => const DriverListScreen(),
           SplashScreen.id: (context) => const SplashScreen(),
           DashBoardScreen.id: (context) => const DashBoardScreen(),
           //DetailScreen.id: (context) => const DetailScreen(),

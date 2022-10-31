@@ -59,7 +59,9 @@ class DataController extends ChangeNotifier {
           driver_list = (response.data as List)
               .map((e) => DriverModel.fromJson(e))
               .toList();
+          log("==============>>>>>> driver data fetched");
           isLoading = true;
+          notifyListeners();
         }
       } catch (e) {
         rethrow;
