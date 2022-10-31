@@ -5,7 +5,7 @@ import 'package:trip_app/view/driver_list.dart';
 import '../model/constants.dart';
 import '../model/trip_model.dart';
 
-detailsBottomSheet(context, size, trip) {
+detailsBottomSheet(context, size, trip, tripId) {
   showModalBottomSheet(
       backgroundColor:
           const Color.fromARGB(255, 216, 216, 250).withOpacity(0.5),
@@ -124,10 +124,11 @@ detailsBottomSheet(context, size, trip) {
                     //   "status": "approved"
                     // });
                     // Navigator.pushReplacementNamed(context, SuccessScreen.id);
-                    Navigator.pushNamed(
-                      context,
-                      DriverListScreen.id,
-                    );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DriverListScreen(tripId: tripId)));
                   },
                   child: const Text('Assign Drive'),
                 )

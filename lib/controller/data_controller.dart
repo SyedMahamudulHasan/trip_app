@@ -48,10 +48,11 @@ class DataController extends ChangeNotifier {
     }
   }
 
-  Future<void> getDriverList() async {
+  Future<void> getDriverList(String tripId) async {
     isLoading = false;
 
-    Response<dynamic>? response = await connectionHelper.getData("");
+    Response<dynamic>? response =
+        await connectionHelper.getData("$baseUrl/get-nearest-drivers/$tripId/");
 
     if (response != null) {
       try {

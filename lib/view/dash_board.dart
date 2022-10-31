@@ -178,6 +178,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           detailsBottomSheet(
                             context,
                             size,
+                            data.trips[index].requestTripId,
                             isFiltered
                                 ? (searchResult.isEmpty
                                     ? data.trips[index]
