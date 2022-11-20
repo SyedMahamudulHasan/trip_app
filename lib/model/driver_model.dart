@@ -1,7 +1,5 @@
 class DriverModel {
   String? id;
-  String? drivingLicenseFrontImage;
-  String? drivingLicenseBackImage;
   String? nationalInsurance;
   bool? isCondemnedPrior;
   String? totalEarned;
@@ -12,11 +10,14 @@ class DriverModel {
   String? lastName;
   String? status;
   String? gender;
+  String? phone;
+  String? address;
+  String? email;
+  String? drivingLicenseFrontImage;
+  String? drivingLicenseBackImage;
 
   DriverModel(
       {this.id,
-      this.drivingLicenseFrontImage,
-      this.drivingLicenseBackImage,
       this.nationalInsurance,
       this.isCondemnedPrior,
       this.totalEarned,
@@ -26,12 +27,15 @@ class DriverModel {
       this.firstName,
       this.lastName,
       this.status,
-      this.gender});
+      this.gender,
+      this.phone,
+      this.address,
+      this.email,
+      this.drivingLicenseFrontImage,
+      this.drivingLicenseBackImage});
 
   DriverModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    drivingLicenseFrontImage = json['driving_license_front_image'];
-    drivingLicenseBackImage = json['driving_license_back_image'];
     nationalInsurance = json['national_insurance'];
     isCondemnedPrior = json['is_condemned_prior'];
     totalEarned = json['total_earned'];
@@ -42,13 +46,16 @@ class DriverModel {
     lastName = json['last_name'];
     status = json['status'];
     gender = json['gender'];
+    phone = json['phone'];
+    address = json['address'];
+    email = json['email'];
+    drivingLicenseFrontImage = json['driving_license_front_image'];
+    drivingLicenseBackImage = json['driving_license_back_image'];
   }
 
   // Map<String, dynamic> toJson() {
   //   final Map<String, dynamic> data = new Map<String, dynamic>();
   //   data['id'] = this.id;
-  //   data['driving_license_front_image'] = this.drivingLicenseFrontImage;
-  //   data['driving_license_back_image'] = this.drivingLicenseBackImage;
   //   data['national_insurance'] = this.nationalInsurance;
   //   data['is_condemned_prior'] = this.isCondemnedPrior;
   //   data['total_earned'] = this.totalEarned;
@@ -59,6 +66,11 @@ class DriverModel {
   //   data['last_name'] = this.lastName;
   //   data['status'] = this.status;
   //   data['gender'] = this.gender;
+  //   data['phone'] = this.phone;
+  //   data['address'] = this.address;
+  //   data['email'] = this.email;
+  //   data['driving_license_front_image'] = this.drivingLicenseFrontImage;
+  //   data['driving_license_back_image'] = this.drivingLicenseBackImage;
   //   return data;
   // }
 }

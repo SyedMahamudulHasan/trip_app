@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
+import 'package:trip_app/view/dash_board.dart';
 import 'package:trip_app/view/utility/phoneCall_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,6 +31,31 @@ class _DriverListScreenState extends State<DriverListScreen> {
   Widget build(BuildContext context) {
     final data = Provider.of<DataController>(context).driver_list;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFCAC9FD),
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          "Driver List",
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DashBoardScreen(),
+              ),
+            );
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.black,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -43,7 +69,20 @@ class _DriverListScreenState extends State<DriverListScreen> {
                   ListTile(
                     title: Text(
                         "${data[index].firstName!} ${data[index].lastName!}"),
-                    subtitle: Text(data[index].status!),
+                    subtitle: Row(
+                      children: [
+                        const Text("Occupied: "),
+                        data[index].isOccupied!
+                            ? const Icon(
+                                Icons.check,
+                                color: Colors.greenAccent,
+                              )
+                            : const Icon(
+                                Icons.cancel_outlined,
+                                color: Colors.redAccent,
+                              )
+                      ],
+                    ),
 
                     ///phone button.
                     trailing: Row(
@@ -52,13 +91,15 @@ class _DriverListScreenState extends State<DriverListScreen> {
                         data[index].gender == "Male"
                             ? const Icon(
                                 Icons.male_outlined,
+                                color: Colors.blueAccent,
                               )
                             : const Icon(
                                 Icons.female_outlined,
+                                color: Colors.pinkAccent,
                               ),
                         IconButton(
                           onPressed: () {
-                            launchPhoneDialer("+8801727493053");
+                            launchPhoneDialer(data[index].phone!);
                           },
                           icon: const Icon(Icons.call),
                         ),
