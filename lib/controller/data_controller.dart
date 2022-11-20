@@ -48,7 +48,7 @@ class DataController extends ChangeNotifier {
     }
   }
 
-  Future<void> getDriverList(String tripId) async {
+  Future<void> getDriverList() async {
     isLoading = false;
 
     Response<dynamic>? response =
