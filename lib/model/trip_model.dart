@@ -33,7 +33,7 @@ class TripInformation {
   String? webUrl;
   String? vehicleType;
   int? numberOfPeople;
-  int? luggage;
+  String? luggage;
   int? maxWeight;
   int? childSeat;
   String? pickupPoint;
@@ -71,7 +71,7 @@ class TripInformation {
     luggage = json['luggage'];
     maxWeight = json['max_weight'];
     childSeat = json['child_seat'];
-    pickupPoint = json['pickup_point'];
+    pickupPoint = json['pickup_point_name'];
     destination = json['destination'];
     date = json['date'];
     time = json['time'];
