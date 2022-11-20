@@ -49,7 +49,6 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     final TripInformation tripInformation =
@@ -151,7 +150,8 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
             tripDataWidget(
                 size: widget.size,
                 icon: FeatherIcons.mapPin,
-                text: tripInformation.address),
+                text:
+                    "${tripInformation.address} to ${tripInformation.destination}"),
           ],
         ),
       ),

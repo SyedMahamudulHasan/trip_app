@@ -6,7 +6,6 @@ import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/model/trip_model.dart';
 import 'package:trip_app/view/success_splash_screen.dart';
-
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key, required this.trip}) : super(key: key);
   static String id = '/details';
