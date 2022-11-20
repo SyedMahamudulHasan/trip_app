@@ -21,7 +21,8 @@ class DriverListScreen extends StatefulWidget {
 class _DriverListScreenState extends State<DriverListScreen> {
   @override
   void initState() {
-    Provider.of<DataController>(context, listen: false).getDriverList();
+    Provider.of<DataController>(context, listen: false)
+        .getDriverList(widget.tripId);
     super.initState();
   }
 
@@ -58,7 +59,8 @@ class _DriverListScreenState extends State<DriverListScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await Provider.of<DataController>(context).getDriverList();
+          await Provider.of<DataController>(context)
+              .getDriverList(widget.tripId);
         },
         child: Visibility(
           visible: isLoading,
@@ -90,9 +92,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                       ],
                     ),
                     child: GestureDetector(
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -101,42 +101,18 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "ID: ${data[index].id!}",
+                                  "ID: ${data[index].driver!.id.toString()}",
                                   maxLines: 1,
                                 ),
                                 Text(
-                                    "Name: ${data[index].firstName!} ${data[index].lastName!}"),
+                                    "Name: ${data[index].driver!.firstName!} ${data[index].driver!.lastName!}"),
                               ],
                             ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Text("Available: "),
-                                    data[index].isOccupied!
-                                        ? const Icon(
-                                            Icons.check,
-                                            color: Colors.greenAccent,
-                                          )
-                                        : const Icon(
-                                            Icons.cancel_outlined,
-                                            color: Colors.redAccent,
-                                          ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                        "Current Location: ${data[index].address}"),
-                                  ],
-                                )
-                              ],
-                            ),
+                            subtitle: const Text("Available: "),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                data[index].gender == "Male"
+                                data[index].driver!.gender == "Male"
                                     ? const Icon(
                                         Icons.male_outlined,
                                         color: Colors.blueAccent,
@@ -147,7 +123,8 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                       ),
                                 IconButton(
                                   onPressed: () {
-                                    launchPhoneDialer(data[index].phone!);
+                                    launchPhoneDialer(
+                                        data[index].driver!.phone!);
                                   },
                                   icon: const Icon(Icons.call),
                                 ),
