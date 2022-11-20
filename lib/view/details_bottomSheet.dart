@@ -125,10 +125,11 @@ detailsBottomSheet(context, size, trip, tripId) {
                     // });
                     // Navigator.pushReplacementNamed(context, SuccessScreen.id);
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DriverListScreen(tripId: tripId)));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DriverListScreen(tripId: tripId)),
+                    );
                   },
                   child: const Text('Assign Drive'),
                 )

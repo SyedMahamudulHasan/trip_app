@@ -28,7 +28,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<DataController>(context);
+    final data = Provider.of<DataController>(context).driver_list;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -36,21 +36,26 @@ class _DriverListScreenState extends State<DriverListScreen> {
           vertical: 24,
         ),
         child: ListView.builder(
-            itemCount: data.driver_list.length,
+            itemCount: data.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   ListTile(
-                    title: Text(data.driver_list[index].name!),
-                    subtitle: const Text("Jessore"),
+                    title: Text(
+                        "${data[index].firstName!} ${data[index].lastName!}"),
+                    subtitle: Text(data[index].status!),
 
                     ///phone button.
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(
-                          Icons.male_outlined,
-                        ),
+                        data[index].gender == "Male"
+                            ? const Icon(
+                                Icons.male_outlined,
+                              )
+                            : const Icon(
+                                Icons.female_outlined,
+                              ),
                         IconButton(
                           onPressed: () {
                             launchPhoneDialer("+8801727493053");

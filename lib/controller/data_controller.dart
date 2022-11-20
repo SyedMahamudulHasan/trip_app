@@ -11,8 +11,8 @@ class DataController extends ChangeNotifier {
   List<TripModel> trips = [];
   List<DriverModel> driver_list = [];
   bool isLoading = true;
-  final String geturl = '$baseUrl/all-trips';
-  final String postUrl = '$baseUrl/set-trip-status/';
+  final String geturl = '$baseUrl/admin/all-trips';
+  final String postUrl = '$baseUrl/get-all-drives/';
 
   Future<void> getAllTrips() async {
     isLoading = false;
@@ -52,7 +52,7 @@ class DataController extends ChangeNotifier {
     isLoading = false;
 
     Response<dynamic>? response =
-        await connectionHelper.getData("$baseUrl/get-nearest-drivers/$tripId/");
+        await connectionHelper.getData("$baseUrl/admin/get-all-drivers/");
 
     if (response != null) {
       if (response.statusCode == 200) {
