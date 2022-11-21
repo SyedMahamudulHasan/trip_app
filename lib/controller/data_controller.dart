@@ -34,8 +34,10 @@ class DataController extends ChangeNotifier {
 
   Future<void> getLogin(dynamic data) async {
     isLoading = false;
+    notifyListeners();
     try {
       final response = await connectionHelper.postData("$baseUrl/login/", data);
+      print(response!.data);
     } catch (e) {
       throw "Couldn't logged in";
     }

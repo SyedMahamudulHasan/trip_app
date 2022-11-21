@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/view/utility/auth_appbar.dart';
 import 'package:trip_app/view/utility/auth_button.dart';
 import 'package:trip_app/view/utility/auth_text_button.dart';
@@ -39,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
+    final dataProdicer = Provider.of<DataController>(context);
     return Scaffold(
       body: GestureDetector(
         onTap: () {
@@ -99,13 +101,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              AuthButton(
-                buttonText: "Login",
-                onTriger: () async {
-                  FocusScope.of(context).unfocus();
-                  _formkey.currentState!.validate();
-                },
-              ),
+              !dataProdicer.isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: KConstColors.secondaryColor,
+                      ),
+                    )
+                  : AuthButton(
+                      buttonText: "Login",
+                      onTriger: () async {
+                        FocusScope.of(context).unfocus();
+                        if (_formkey.currentState!.validate()) {
+                          Provider.of<DataController>(context, listen: false)
+                              .getLogin({
+                            "email": _emailController.text,
+                            "password": _passwordController.text,
+                          });
+                        }
+                      },
+                    ),
 
               Helper.spacer(size, 0.40),
 
