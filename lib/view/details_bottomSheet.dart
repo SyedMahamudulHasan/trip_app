@@ -42,7 +42,7 @@ detailsBottomSheet(context, size, trip, tripId) {
             Kwidgets.tripdataItem(
                 dataType: "phone", data: tripInfo.phone, size: size),
             Kwidgets.tripdataItem(
-                dataType: "address", data: tripInfo.address, size: size),
+                dataType: "address", data: tripInfo.destinationName, size: size),
 
             ///===============================web url
 
@@ -61,11 +61,11 @@ detailsBottomSheet(context, size, trip, tripId) {
                     data: tripInfo.numberOfPeople.toString(),
                     size: size,
                     width: 0.45),
-                Kwidgets.tripdataItem(
-                    dataType: "Childrens",
-                    data: tripInfo.childSeat.toString(),
-                    size: size,
-                    width: 0.45),
+                // Kwidgets.tripdataItem(
+                //     dataType: "Childrens",
+                //     data: tripInfo.childSeat.toString(),
+                //     size: size,
+                //     width: 0.45),
               ],
             ),
             Row(
@@ -73,7 +73,7 @@ detailsBottomSheet(context, size, trip, tripId) {
               children: [
                 Kwidgets.tripdataItem(
                     dataType: 'Pickup point',
-                    data: tripInfo.pickupPoint,
+                    data: tripInfo.pickupLocationName,
                     size: size,
                     width: 0.45),
                 Kwidgets.tripdataItem(
@@ -93,7 +93,7 @@ detailsBottomSheet(context, size, trip, tripId) {
                     width: 0.45),
                 Kwidgets.tripdataItem(
                     dataType: 'Time',
-                    data: tripInfo.time,
+                    data: tripInfo.pickupTime,
                     size: size,
                     width: 0.45),
               ],

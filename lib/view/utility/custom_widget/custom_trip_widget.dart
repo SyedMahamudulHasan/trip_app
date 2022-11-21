@@ -158,7 +158,7 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
                 icon: FeatherIcons.mapPin,
                 iconColor: Colors.greenAccent,
                 text:
-                    "${tripInformation.address} to ${tripInformation.destination}"),
+                    "${tripInformation.pickupLocationName} to ${tripInformation.destinationName}"),
           ],
         ),
       ),

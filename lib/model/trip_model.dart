@@ -124,9 +124,9 @@ class TripInformation {
   String? destinationName;
   String? date;
   String? pickupTime;
-  Null? driver;
-  Null? assignedVehicle;
-  int? discount;
+  String? driver;
+  String? assignedVehicle;
+  double? discount;
   int? hours;
   String? bookingMethod;
   List<String>? stops;
