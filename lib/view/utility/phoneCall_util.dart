@@ -10,3 +10,16 @@ Future<void> launchPhoneDialer(String contactNumber) async {
     throw ("Cannot dial");
   }
 }
+
+void launchEmail(String email) async {
+  final Uri url = Uri(
+    scheme: 'mailto',
+    path: email,
+  );
+
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw "Can connect with $url";
+  }
+}

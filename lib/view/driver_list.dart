@@ -134,8 +134,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    launchPhoneDialer(
-                                        data[index].driver!.email!);
+                                    launchEmail(data[index].driver!.email!);
                                   },
                                   icon: const Icon(
                                     Icons.email_outlined,
