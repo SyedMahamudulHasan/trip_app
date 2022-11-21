@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: KConstColors.primaryColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: "Railway",
+          fontFamily: "quicksand",
         ),
         initialRoute: DriverListScreen.id,
         routes: {

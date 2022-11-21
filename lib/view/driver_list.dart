@@ -1,11 +1,15 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
+import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/view/dash_board.dart';
+import 'package:trip_app/view/utility/auth_button.dart';
 import 'package:trip_app/view/utility/constants.dart';
 import 'package:trip_app/view/utility/phoneCall_util.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,10 +24,13 @@ class DriverListScreen extends StatefulWidget {
 }
 
 class _DriverListScreenState extends State<DriverListScreen> {
+  bool isExpanded = false;
+
   @override
   void initState() {
     Provider.of<DataController>(context, listen: false)
         .getDriverList(widget.tripId);
+
     super.initState();
   }
 
@@ -32,6 +39,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
     final data = Provider.of<DataController>(context).driver_list;
     final isLoading = Provider.of<DataController>(context).isLoading;
     final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: const Color(0xFFCAC9FD),
@@ -76,27 +84,32 @@ class _DriverListScreenState extends State<DriverListScreen> {
             child: ListView.builder(
                 itemCount: data.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.only(
-                      bottom: 10,
-                    ),
-                    //width: size.width,
-                    height: size.height * 0.1,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: KConstColors.secondaryColor.withOpacity(0.7),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: const Offset(2, 5),
-                        ),
-                      ],
-                    ),
-                    child: GestureDetector(
-                      onTap: () {},
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(
+                        bottom: 10,
+                      ),
+                      //width: size.width,
+                      ///Todo:
+                      //height: size.height * 0.1,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: KConstColors.secondaryColor.withOpacity(0.7),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            offset: const Offset(2, 5),
+                          ),
+                        ],
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -105,26 +118,40 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "ID: ${data[index].driver!.id.toString()}",
+                                  " ID: ${data[index].driver!.id.toString()}",
                                   maxLines: 1,
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text(
-                                        "Name: ${data[index].driver!.firstName!} ${data[index].driver!.lastName!}"),
+                                    Row(
+                                      children: [
+                                        data[index].driver!.gender == "Male"
+                                            ? const Icon(
+                                                Icons.male,
+                                                color: Colors.blue,
+                                              )
+                                            : const Icon(Icons.female,
+                                                color: Colors.pinkAccent),
+                                        SizedBox(
+                                          width: size.width * 0.02,
+                                        ),
+                                        Text(
+                                            "${data[index].driver!.firstName!} ${data[index].driver!.lastName!}"),
+                                      ],
+                                    ),
                                     const SizedBox(
                                       width: 8,
                                     ),
-                                    data[index].driver!.gender == "Male"
-                                        ? const Icon(
-                                            Icons.male_outlined,
-                                            color: Colors.blueAccent,
-                                          )
-                                        : const Icon(
-                                            Icons.female_outlined,
-                                            color: Colors.pinkAccent,
-                                          ),
+                                    // data[index].driver!.gender == "Male"
+                                    //     ? const Icon(
+                                    //         Icons.male_outlined,
+                                    //         color: Colors.blueAccent,
+                                    //       )
+                                    //     : const Icon(
+                                    //         Icons.female_outlined,
+                                    //         color: Colors.pinkAccent,
+                                    //       ),
                                   ],
                                 ),
                               ],
@@ -154,10 +181,120 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               ],
                             ),
                           ),
-                          // const Divider(
-                          //   height: sqrt1_2,
-                          //   thickness: sqrt1_2,
-                          // ),
+
+                          ///=======================>>> vehical info
+                          isExpanded
+                              ? Column(
+                                  children: [
+                                    const Divider(
+                                      height: sqrt1_2,
+                                      thickness: sqrt1_2,
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 8),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Icon(FeatherIcons.key),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text(data[index]
+                                                  .vehicle!
+                                                  .id
+                                                  .toString()),
+                                            ],
+                                          ),
+                                          Helper.spacer(size, 0.01),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const Icon(Icons
+                                                      .car_rental_outlined),
+                                                  SizedBox(
+                                                    width: size.width * 0.02,
+                                                  ),
+                                                  Text(
+                                                      "${data[index].vehicle!.manufacturer}"),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                      FeatherIcons.package),
+                                                  SizedBox(
+                                                    width: size.width * 0.02,
+                                                  ),
+                                                  Text(
+                                                      "${data[index].vehicle!.vehicleType}"),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Helper.spacer(size, 0.01),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const Icon(Icons
+                                                      .card_travel_outlined),
+                                                  SizedBox(
+                                                    width: size.width * 0.02,
+                                                  ),
+                                                  Text(
+                                                      "${data[index].vehicle!.luggageCapacity}"),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                      Icons.child_care_sharp),
+                                                  SizedBox(
+                                                    width: size.width * 0.02,
+                                                  ),
+                                                  Text(
+                                                      "${data[index].vehicle!.luggageCapacity}"),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              print("I am pressed");
+                                            },
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 8,
+                                                horizontal: 16,
+                                              ),
+                                              height: size.height * 0.05,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color:
+                                                    KConstColors.secondaryColor,
+                                              ),
+                                              child: Text(
+                                                "Assign Driver",
+                                                style:
+                                                    KConstTextStyle.buttonText,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox(),
                         ],
                       ),
                     ),
