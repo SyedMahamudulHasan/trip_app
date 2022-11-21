@@ -24,7 +24,7 @@ class DriverListScreen extends StatefulWidget {
 }
 
 class _DriverListScreenState extends State<DriverListScreen> {
-  bool isExpanded = false;
+  Map<String, bool> isExpanded = {};
 
   @override
   void initState() {
@@ -88,7 +88,15 @@ class _DriverListScreenState extends State<DriverListScreen> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        isExpanded = !isExpanded;
+                        if (isExpanded[
+                                driverList[index].driver!.id.toString()] ==
+                            null) {
+                          isExpanded[driverList[index].driver!.id.toString()] =
+                              true;
+                        }
+                        isExpanded[driverList[index].driver!.id.toString()] =
+                            !isExpanded[
+                                driverList[index].driver!.id.toString()]!;
                       });
                     },
                     child: Container(
@@ -119,7 +127,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  " ID: ${driverList[index].driver!.id.toString()}",
+                                  " Distance: ${driverList[index].distanceFromLocation!.toStringAsFixed(1)} km",
                                   maxLines: 1,
                                 ),
                                 Row(
@@ -186,7 +194,13 @@ class _DriverListScreenState extends State<DriverListScreen> {
                           ),
 
                           ///=======================>>> vehical info
-                          isExpanded
+                          isExpanded[driverList[index].driver!.id.toString()] !=
+                                      null &&
+                                  isExpanded[driverList[index]
+                                          .driver!
+                                          .id
+                                          .toString()] ==
+                                      true
                               ? Column(
                                   children: [
                                     const Divider(
@@ -288,7 +302,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                                 "driver_id": driverList[index]
                                                     .driver!
                                                     .id,
-                                                "vehical_id": driverList[index]
+                                                "vehicle_id": driverList[index]
                                                     .vehicle!
                                                     .id,
                                               });

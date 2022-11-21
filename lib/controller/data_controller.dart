@@ -108,6 +108,7 @@ class DataController extends ChangeNotifier {
         if (response.statusCode == 200) {
           print(response.data);
         }
+        print(response.statusCode);
         print(response.data);
       }
     } catch (e) {
