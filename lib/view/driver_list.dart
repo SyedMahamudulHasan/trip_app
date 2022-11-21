@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/view/dash_board.dart';
+import 'package:trip_app/view/utility/constants.dart';
 import 'package:trip_app/view/utility/phoneCall_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,7 +34,8 @@ class _DriverListScreenState extends State<DriverListScreen> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFCAC9FD),
+        // backgroundColor: const Color(0xFFCAC9FD),
+        backgroundColor: KConstColors.primaryColor,
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -59,7 +61,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await Provider.of<DataController>(context)
+          await Provider.of<DataController>(context, listen: false)
               .getDriverList(widget.tripId);
         },
         child: Visibility(
@@ -70,21 +72,23 @@ class _DriverListScreenState extends State<DriverListScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 24,
             ),
             child: ListView.builder(
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   return Container(
                     padding: const EdgeInsets.all(8),
+                    margin: const EdgeInsets.only(
+                      bottom: 10,
+                    ),
                     //width: size.width,
-                    height: size.height * 0.14,
+                    height: size.height * 0.1,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blueGrey.withOpacity(0.7),
+                          color: KConstColors.secondaryColor.withOpacity(0.7),
                           spreadRadius: 1,
                           blurRadius: 4,
                           offset: const Offset(2, 5),
@@ -104,29 +108,49 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                   "ID: ${data[index].driver!.id.toString()}",
                                   maxLines: 1,
                                 ),
-                                Text(
-                                    "Name: ${data[index].driver!.firstName!} ${data[index].driver!.lastName!}"),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                        "Name: ${data[index].driver!.firstName!} ${data[index].driver!.lastName!}"),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    data[index].driver!.gender == "Male"
+                                        ? const Icon(
+                                            Icons.male_outlined,
+                                            color: Colors.blueAccent,
+                                          )
+                                        : const Icon(
+                                            Icons.female_outlined,
+                                            color: Colors.pinkAccent,
+                                          ),
+                                  ],
+                                ),
                               ],
                             ),
-                            subtitle: const Text("Available: "),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                data[index].driver!.gender == "Male"
-                                    ? const Icon(
-                                        Icons.male_outlined,
-                                        color: Colors.blueAccent,
-                                      )
-                                    : const Icon(
-                                        Icons.female_outlined,
-                                        color: Colors.pinkAccent,
-                                      ),
+                                IconButton(
+                                  onPressed: () {
+                                    launchPhoneDialer(
+                                        data[index].driver!.email!);
+                                  },
+                                  icon: const Icon(
+                                    Icons.email_outlined,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
                                 IconButton(
                                   onPressed: () {
                                     launchPhoneDialer(
                                         data[index].driver!.phone!);
                                   },
-                                  icon: const Icon(Icons.call),
+                                  icon: const Icon(
+                                    Icons.call,
+                                    color: Colors.blue,
+                                  ),
                                 ),
                               ],
                             ),

@@ -1,5 +1,5 @@
 class DriverModel {
-  int? distanceFromLocation;
+  double? distanceFromLocation;
   Driver? driver;
   Vehicle? vehicle;
 
