@@ -11,6 +11,7 @@ class UserDB {
 
   Future<String> getUserData(dynamic data) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(data["email"])!;
+    print(prefs.getString(data["email"].toString()));
+    return prefs.getString(data["email"].toString())!;
   }
 }

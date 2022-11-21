@@ -44,16 +44,17 @@ class DataController extends ChangeNotifier {
 
       if (response != null) {
         if (response.statusCode == 200 || response.statusCode == 201) {
+          print(response.data);
           localDatabase.storeUserData({
             "email": response.data["email"],
-            "access": response.data["accss"],
+            "access": response.data["access"],
           });
           userEmail = response.data["email"];
           isLogged = true;
         }
       }
     } catch (e) {
-      throw "Couldn't logged in";
+      throw "Couldn't logged in $e";
     }
 
     isLoading = true;
@@ -97,7 +98,9 @@ class DataController extends ChangeNotifier {
   }
 
   Future<void> assignVehicle(dynamic data) async {
-    final token = await localDatabase.getUserData(userEmail);
+    //final token = await localDatabase.getUserData(userEmail);
+    final token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY5MDMzOTExLCJpYXQiOjE2NjkwMzIxMTEsImp0aSI6IjY1YWExZTQxMzhhOTRhMjZhYmY3Nzc1ZTQ2OGMyYWVmIiwidXNlcl9pZCI6IjUwMmNlMjJiLWJlYjUtNDQyYi04OGU2LTIzYjlkMmJjN2UzZSJ9.OMMNSk6dIw2SrklvM9eiUj55C2AT9_aStc6At16yeZg";
     try {
       final response = await connectionHelper.postDataWithHeaders(
           "$baseUrl/admin/assign-vehicle/", data, token);
@@ -105,6 +108,7 @@ class DataController extends ChangeNotifier {
         if (response.statusCode == 200) {
           print(response.data);
         }
+        print(response.data);
       }
     } catch (e) {
       throw "Trip not booked $e";

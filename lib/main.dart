@@ -29,13 +29,13 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: "quicksand",
         ),
-        initialRoute: DriverListScreen.id,
+        initialRoute: LoginScreen.id,
         routes: {
           LoginScreen.id: (context) => const LoginScreen(),
           SplashScreen.id: (context) => const SplashScreen(),
           DashBoardScreen.id: (context) => const DashBoardScreen(),
-          DriverListScreen.id: (context) => const DriverListScreen(
-              tripId: "5afe33da-9d43-4b51-ab57-e59874b71900"),
+          // DriverListScreen.id: (context) => const DriverListScreen(
+          //     tripId: "5afe33da-9d43-4b51-ab57-e59874b71900"),
           //DetailScreen.id: (context) => const DetailScreen(),
           // SuccessScreen.id: (context) => const SuccessScreen(),
         },

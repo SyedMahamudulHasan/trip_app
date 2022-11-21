@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:trip_app/view/driver_list.dart';
+import 'package:trip_app/view/utility/constants.dart';
 
 import '../model/constants.dart';
 import '../model/trip_model.dart';
@@ -133,14 +134,18 @@ detailsBottomSheet(context, size, trip, tripId) {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                    
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: KConstColors.secondaryColor,
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     child: const Text('Cancel'),
-                    
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: KConstColors.secondaryColor,
+                    ),
                     onPressed: () {
                       // action.actionsOnTrips({
                       //   "id": "a8a8758b-4434-49cb-b5fc-637488f217cd",

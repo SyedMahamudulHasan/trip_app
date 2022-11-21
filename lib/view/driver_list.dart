@@ -273,6 +273,13 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                               print('I am clicked');
 
                                               ///==================================>>>> booking driver
+                                              print(
+                                                  " trip id : ${widget.tripId}");
+                                              print(
+                                                  " trip id : ${driverList[index].driver!.id}");
+                                              print(
+                                                  " trip id : ${driverList[index].vehicle!.id}");
+
                                               Provider.of<DataController>(
                                                       context,
                                                       listen: false)
