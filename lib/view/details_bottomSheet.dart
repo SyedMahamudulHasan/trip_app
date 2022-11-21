@@ -133,10 +133,12 @@ detailsBottomSheet(context, size, trip, tripId) {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
+                    
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     child: const Text('Cancel'),
+                    
                   ),
                   ElevatedButton(
                     onPressed: () {

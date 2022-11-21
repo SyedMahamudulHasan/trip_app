@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:trip_app/controller/data_controller.dart';
+import 'package:trip_app/view/dash_board.dart';
 import 'package:trip_app/view/utility/auth_appbar.dart';
 import 'package:trip_app/view/utility/auth_button.dart';
 import 'package:trip_app/view/utility/auth_text_button.dart';
@@ -112,11 +115,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTriger: () async {
                         FocusScope.of(context).unfocus();
                         if (_formkey.currentState!.validate()) {
-                          Provider.of<DataController>(context, listen: false)
+                          final isValid = await Provider.of<DataController>(
+                                  context,
+                                  listen: false)
                               .getLogin({
                             "email": _emailController.text,
                             "password": _passwordController.text,
                           });
+
+                          if (isValid) {
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushReplacementNamed(
+                                context, DashBoardScreen.id);
+                          } else {
+                            QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.error,
+                              title: 'Oops...',
+                              text: 'Sorry, user data not found',
+                            );
+                          }
                         }
                       },
                     ),

@@ -20,9 +20,14 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   late TextEditingController _controller;
 
+  _fetchTripData() {
+    Provider.of<DataController>(context, listen: false).getAllTrips();
+  }
+
   @override
   void initState() {
     _controller = TextEditingController();
+    _fetchTripData();
     super.initState();
   }
 

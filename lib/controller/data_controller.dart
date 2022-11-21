@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_app/controller/connection_helper.dart';
 import 'package:trip_app/model/driver_model.dart';
+import 'package:trip_app/model/userDB.dart';
 import '../model/constants.dart';
 import '../model/trip_model.dart';
 
@@ -11,6 +12,7 @@ class DataController extends ChangeNotifier {
   List<TripModel> trips = [];
   List<DriverModel> driver_list = [];
   bool isLoading = true;
+  UserDB localDatabase = UserDB();
   final String geturl = '$baseUrl/admin/all-trips';
   final String postUrl = '$baseUrl/admin/set-trip-status/';
 
@@ -32,17 +34,29 @@ class DataController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getLogin(dynamic data) async {
+  Future<bool> getLogin(dynamic data) async {
+    bool isLogged = false;
     isLoading = false;
     notifyListeners();
     try {
       final response = await connectionHelper.postData("$baseUrl/login/", data);
-      print(response!.data);
+
+      if (response != null) {
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          localDatabase.storeUserData({
+            "email": response.data["email"],
+            "access": response.data["accss"],
+          });
+          isLogged = true;
+        }
+      }
     } catch (e) {
       throw "Couldn't logged in";
     }
+
     isLoading = true;
     notifyListeners();
+    return isLogged;
   }
 
   Future<bool> changeTripStatus(dynamic data) async {

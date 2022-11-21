@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
           scaffoldBackgroundColor: KConstColors.primaryColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: "Railway",
         ),
+      
         initialRoute: LoginScreen.id,
         routes: {
           LoginScreen.id: (context) => const LoginScreen(),
