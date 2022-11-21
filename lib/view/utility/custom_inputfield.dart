@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trip_app/view/utility/constants.dart';
-
 
 class CustomTextInputfield extends StatelessWidget {
   const CustomTextInputfield({
@@ -31,11 +29,11 @@ class CustomTextInputfield extends StatelessWidget {
   final TextInputAction? textInputAction;
   final bool isEnabled;
 
-  OutlineInputBorder inputFieldBorder() {
+  OutlineInputBorder inputFieldBorder({errorColor}) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(24),
-      borderSide: const BorderSide(
-          color: KConstColors.inputFieldBorderColor, width: 2.0),
+      borderSide: BorderSide(
+          color: errorColor ?? KConstColors.inputFieldBorderColor, width: 2.0),
     );
   }
 
@@ -53,16 +51,17 @@ class CustomTextInputfield extends StatelessWidget {
           prefixIcon,
           color: KConstColors.iconColor,
         ),
-       
 
-                ///
-               
+        ///
+
         hintText: hintText,
-       
+
         focusedBorder: inputFieldBorder(),
         enabledBorder: inputFieldBorder(),
         disabledBorder: inputFieldBorder(),
-        errorBorder: inputFieldBorder(),
+        errorBorder: inputFieldBorder(
+          errorColor: Colors.redAccent,
+        ),
         focusedErrorBorder: inputFieldBorder(),
       ),
       validator: validator,

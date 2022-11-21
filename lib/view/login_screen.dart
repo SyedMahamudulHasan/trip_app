@@ -69,11 +69,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyBoardType: TextInputType.emailAddress,
                       screenName: "login",
                       textInputAction: TextInputAction.next,
-                      validator: (value) {},
+                      validator: (value) {
+                        if (value!.isNotEmpty) {
+                          return null;
+                        }
+                        return "Invalid email";
+                      },
                     ),
                     //Text(ref.watch(connectionProvider).apiErrors["login"] ?? ""),
 
-                    Helper.spacer(size, 0.02),
+                    Helper.spacer(size, 0.03),
                     CustomTextInputfield(
                       textController: _passwordController,
                       hintText: "Enter your password",
@@ -81,7 +86,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       isPassword: true,
                       screenName: "login",
                       textInputAction: TextInputAction.done,
-                      validator: (value) {},
+                      validator: (value) {
+                        if (value!.isNotEmpty) {
+                          return null;
+                        }
+                        return "Invalid password";
+                      },
                     ),
                     // Text( ?? ""),
                     Helper.spacer(size, 0.03),
@@ -89,52 +99,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              ///=====================================> forgetbutton
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    ///tracking of going to the forget screens
-                  },
-                  child: const Text(
-                    'Forget Password?',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xff6A707C),
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ),
-
-              ///=========================================> buttons
-              // isAsyn
-              //     ? const Align(
-              //         alignment: Alignment.center,
-              //         child: CircularProgressIndicator(
-              //           color: KConstColors.secondaryColor,
-              //         ),
-              //       )
               AuthButton(
                 buttonText: "Login",
                 onTriger: () async {
                   FocusScope.of(context).unfocus();
+                  _formkey.currentState!.validate();
                 },
               ),
-              Helper.spacer(size, 0.01),
-              AuthtextButton(
-                msg: "Don't have an account?",
-                buttonText: 'Register Now',
-                onTriger: () {},
-              ),
 
-              ///==============================>> signin with google.
-              // AuthButton(
-              //     buttonText: "Social Login",
-              //     onTriger: () {
-              //       googleProvider.signInWithGoogle();
-              //     }),
-              Helper.spacer(size, 0.28),
+              Helper.spacer(size, 0.40),
 
               ///===============================> policy and service
               Align(
