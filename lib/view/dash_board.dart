@@ -94,135 +94,140 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: 16, vertical: size.height * 0.08),
-        child: Column(
-          children: [
-            ///===============================> search bar
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              //width: size.width,
-              height: size.height * 0.08,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.blueGrey.withOpacity(0.7),
-                    spreadRadius: 1,
-                    blurRadius: 4,
-                    offset: const Offset(2, 5),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: 16, vertical: size.height * 0.08),
+          child: Column(
+            children: [
+              ///===============================> search bar
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                //width: size.width,
+                height: size.height * 0.08,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.blueGrey.withOpacity(0.7),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      offset: const Offset(2, 5),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: TextField(
+                    controller: _controller,
+                    onChanged: filterSearchResults,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      border: InputBorder.none,
+                      hintText: 'Search a trip..',
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.04,
+              ),
+              ////==============================================> filter icon
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Trip request list',
+                    style: TextStyle(
+                      fontFamily: 'Urbanist',
+                      fontWeight: FontWeight.w700,
+                      fontSize: size.width * 0.05,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      filterTripList();
+                      //filteredList.clear();
+                    },
+                    icon: const Icon(FeatherIcons.filter),
                   ),
                 ],
               ),
-              child: Center(
-                child: TextField(
-                  controller: _controller,
-                  onChanged: filterSearchResults,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    border: InputBorder.none,
-                    hintText: 'Search a trip..',
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.04,
-            ),
-            ////==============================================> filter icon
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Trip request list',
-                  style: TextStyle(
-                    fontFamily: 'Urbanist',
-                    fontWeight: FontWeight.w700,
-                    fontSize: size.width * 0.05,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    filterTripList();
-                    //filteredList.clear();
+
+              ///==============================================> list of trips
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await Provider.of<DataController>(context, listen: false)
+                        .getAllTrips();
                   },
-                  icon: const Icon(FeatherIcons.filter),
-                ),
-              ],
-            ),
+                  child: Visibility(
+                    visible: data.isLoading,
+                    replacement: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    child: ListView.builder(
+                      // shrinkWrap: true,
+                      itemCount: isFiltered
+                          ? (searchResult.isEmpty
+                              ? data.trips.length
+                              : searchResult.length)
+                          : (filteredList.isEmpty
+                              ? data.trips.length
+                              : filteredList.length),
 
-            ///==============================================> list of trips
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  await Provider.of<DataController>(context, listen: false)
-                      .getAllTrips();
-                },
-                child: Visibility(
-                  visible: data.isLoading,
-                  replacement: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  child: ListView.builder(
-                    // shrinkWrap: true,
-                    itemCount: isFiltered
-                        ? (searchResult.isEmpty
-                            ? data.trips.length
-                            : searchResult.length)
-                        : (filteredList.isEmpty
-                            ? data.trips.length
-                            : filteredList.length),
-
-                    itemBuilder: (context, index) => GestureDetector(
-                        onTap: () {
-                          detailsBottomSheet(
-                            context,
-                            size,
-                            isFiltered
-                                ? (searchResult.isEmpty
-                                    ? data.trips[index]
-                                    : searchResult[index])
-                                : (filteredList.isEmpty
-                                    ? data.trips[index]
-                                    : filteredList[index]),
-                            data.trips[index].requestTripId,
-                          );
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => DetailScreen(
-                          //       trip: data.trips[index],
-                          //     ),
-                          //   ),
-                          // );
-                        },
-                        ////=====================================>  trip widgets
-                        child: Column(
-                          children: [
-                            CustomTripWidget(
-                              size: size,
-                              index: index,
-                              trip: isFiltered
+                      itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            detailsBottomSheet(
+                              context,
+                              size,
+                              isFiltered
                                   ? (searchResult.isEmpty
                                       ? data.trips[index]
                                       : searchResult[index])
                                   : (filteredList.isEmpty
                                       ? data.trips[index]
                                       : filteredList[index]),
-                            ),
-                            SizedBox(
-                              height: size.width * 0.02,
-                            )
-                          ],
-                        )),
+                              data.trips[index].requestTripId,
+                            );
+
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => DetailScreen(
+                            //       trip: data.trips[index],
+                            //     ),
+                            //   ),
+                            // );
+                          },
+                          ////=====================================>  trip widgets
+                          child: Column(
+                            children: [
+                              CustomTripWidget(
+                                size: size,
+                                index: index,
+                                trip: isFiltered
+                                    ? (searchResult.isEmpty
+                                        ? data.trips[index]
+                                        : searchResult[index])
+                                    : (filteredList.isEmpty
+                                        ? data.trips[index]
+                                        : filteredList[index]),
+                              ),
+                              SizedBox(
+                                height: size.width * 0.02,
+                              )
+                            ],
+                          )),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

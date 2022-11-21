@@ -52,7 +52,7 @@ class DataController extends ChangeNotifier {
     isLoading = false;
 
     Response<dynamic>? response = await connectionHelper
-        .getData("$baseUrl/show-drivers-for-this-trip/$tripID");
+        .getData("$baseUrl/admin/show-drivers-for-this-trip/$tripID");
 
     if (response != null) {
       if (response.statusCode == 200) {
