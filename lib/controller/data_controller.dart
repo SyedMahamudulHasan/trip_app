@@ -13,6 +13,7 @@ class DataController extends ChangeNotifier {
   List<DriverModel> driver_list = [];
   bool isLoading = true;
   UserDB localDatabase = UserDB();
+  String userEmail = "afsan@gmail.com";
   final String geturl = '$baseUrl/admin/all-trips';
   final String postUrl = '$baseUrl/admin/set-trip-status/';
 
@@ -47,6 +48,7 @@ class DataController extends ChangeNotifier {
             "email": response.data["email"],
             "access": response.data["accss"],
           });
+          userEmail = response.data["email"];
           isLogged = true;
         }
       }
@@ -92,5 +94,20 @@ class DataController extends ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  Future<void> assignVehicle(dynamic data) async {
+    final token = await localDatabase.getUserData(userEmail);
+    try {
+      final response = await connectionHelper.postDataWithHeaders(
+          "$baseUrl/admin/assign-vehicle/", data, token);
+      if (response != null) {
+        if (response.statusCode == 200) {
+          print(response.data);
+        }
+      }
+    } catch (e) {
+      throw "Trip not booked $e";
+    }
   }
 }

@@ -36,7 +36,8 @@ class _DriverListScreenState extends State<DriverListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<DataController>(context).driver_list;
+    final driverList = Provider.of<DataController>(context).driver_list;
+
     final isLoading = Provider.of<DataController>(context).isLoading;
     final Size size = MediaQuery.of(context).size;
 
@@ -82,7 +83,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
               horizontal: 16,
             ),
             child: ListView.builder(
-                itemCount: data.length,
+                itemCount: driverList.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -118,7 +119,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  " ID: ${data[index].driver!.id.toString()}",
+                                  " ID: ${driverList[index].driver!.id.toString()}",
                                   maxLines: 1,
                                 ),
                                 Row(
@@ -126,7 +127,8 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        data[index].driver!.gender == "Male"
+                                        driverList[index].driver!.gender ==
+                                                "Male"
                                             ? const Icon(
                                                 Icons.male,
                                                 color: Colors.blue,
@@ -137,7 +139,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                           width: size.width * 0.02,
                                         ),
                                         Text(
-                                            "${data[index].driver!.firstName!} ${data[index].driver!.lastName!}"),
+                                            "${driverList[index].driver!.firstName!} ${driverList[index].driver!.lastName!}"),
                                       ],
                                     ),
                                     const SizedBox(
@@ -161,7 +163,8 @@ class _DriverListScreenState extends State<DriverListScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    launchEmail(data[index].driver!.email!);
+                                    launchEmail(
+                                        driverList[index].driver!.email!);
                                   },
                                   icon: const Icon(
                                     Icons.email_outlined,
@@ -171,7 +174,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                 IconButton(
                                   onPressed: () {
                                     launchPhoneDialer(
-                                        data[index].driver!.phone!);
+                                        driverList[index].driver!.phone!);
                                   },
                                   icon: const Icon(
                                     Icons.call,
@@ -201,7 +204,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                               const SizedBox(
                                                 width: 8,
                                               ),
-                                              Text(data[index]
+                                              Text(driverList[index]
                                                   .vehicle!
                                                   .id
                                                   .toString()),
@@ -220,7 +223,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                                     width: size.width * 0.02,
                                                   ),
                                                   Text(
-                                                      "${data[index].vehicle!.manufacturer}"),
+                                                      "${driverList[index].vehicle!.manufacturer}"),
                                                 ],
                                               ),
                                               Row(
@@ -231,7 +234,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                                     width: size.width * 0.02,
                                                   ),
                                                   Text(
-                                                      "${data[index].vehicle!.vehicleType}"),
+                                                      "${driverList[index].vehicle!.vehicleType}"),
                                                 ],
                                               ),
                                             ],
@@ -249,7 +252,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                                     width: size.width * 0.02,
                                                   ),
                                                   Text(
-                                                      "${data[index].vehicle!.luggageCapacity}"),
+                                                      "${driverList[index].vehicle!.luggageCapacity}"),
                                                 ],
                                               ),
                                               Row(
@@ -260,14 +263,28 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                                     width: size.width * 0.02,
                                                   ),
                                                   Text(
-                                                      "${data[index].vehicle!.luggageCapacity}"),
+                                                      "${driverList[index].vehicle!.luggageCapacity}"),
                                                 ],
                                               ),
                                             ],
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              print("I am pressed");
+                                              print('I am clicked');
+
+                                              ///==================================>>>> booking driver
+                                              Provider.of<DataController>(
+                                                      context,
+                                                      listen: false)
+                                                  .assignVehicle({
+                                                "trip_id": widget.tripId,
+                                                "driver_id": driverList[index]
+                                                    .driver!
+                                                    .id,
+                                                "vehical_id": driverList[index]
+                                                    .vehicle!
+                                                    .id,
+                                              });
                                             },
                                             child: Container(
                                               padding:

@@ -43,6 +43,50 @@ class ConnectionHelper {
     }
   }
 
+  Future<Response<dynamic>?> postDataWithHeaders(
+      String url, dynamic data, String token) async {
+    try {
+      // Starting Timer
+      DateTime stime = DateTime.now();
+      Dio dio = Dio();
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (HttpClient client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+        return client;
+      };
+
+      var response = await dio.post(
+        url,
+        data: data,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          //headers: {"SECRET-KEY": "GYGWYERY58454FDS4FD8V487FF8WQ8EF11D88W1D"},
+          headers: {"Authorization": "Bearer $token"},
+          sendTimeout: 10000,
+          receiveTimeout: 10000,
+        ),
+      );
+
+      // Ending Timer
+      DateTime etime = DateTime.now();
+
+      // Calculating Time
+      Duration diff = etime.difference(stime);
+
+      // Printing Results
+      print(url + ": " + diff.inMilliseconds.toString() + " Milliseconds");
+
+      return response;
+    } on DioError catch (error) {
+      if (error.response != null) {
+        return error.response;
+      } else {
+        print(error);
+      }
+    }
+    return null;
+  }
 
   Future<Response<dynamic>?> postData(String url, dynamic data) async {
     try {
