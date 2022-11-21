@@ -23,14 +23,18 @@ class CustomTripWidget extends StatefulWidget {
 }
 
 class _CustomTripWidgetState extends State<CustomTripWidget> {
-  Widget tripDataWidget({size, icon, text, isButton = false}) {
+  Widget tripDataWidget(
+      {size, icon, text, isButton = false, required iconColor}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
           child: Row(
             children: [
-              Icon(icon),
+              Icon(
+                icon,
+                color: iconColor,
+              ),
               SizedBox(
                 width: size.width * 0.02,
               ),
@@ -141,15 +145,18 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
               size: widget.size,
               icon: FeatherIcons.key,
               text: widget.trip.requestTripId,
+              iconColor: Colors.black,
             ),
             tripDataWidget(
                 size: widget.size,
                 icon: FeatherIcons.user,
                 text: tripInformation.fullName,
-                isButton: true),
+                isButton: true,
+                iconColor: Colors.blue),
             tripDataWidget(
                 size: widget.size,
                 icon: FeatherIcons.mapPin,
+                iconColor: Colors.greenAccent,
                 text:
                     "${tripInformation.address} to ${tripInformation.destination}"),
           ],
