@@ -23,9 +23,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-            primarySwatch: Colors.blue,
-            scaffoldBackgroundColor: const Color(0xff649ffd),
-            visualDensity: VisualDensity.adaptivePlatformDensity),
+          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: const Color(0xff649ffd),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: "Railway",
+        ),
         initialRoute: SplashScreen.id,
         routes: {
           SplashScreen.id: (context) => const SplashScreen(),

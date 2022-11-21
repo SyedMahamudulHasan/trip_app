@@ -116,13 +116,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ],
               ),
-              child: TextField(
-                controller: _controller,
-                onChanged: filterSearchResults,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  border: InputBorder.none,
-                  hintText: 'Search a trip..',
+              child: Center(
+                child: TextField(
+                  controller: _controller,
+                  onChanged: filterSearchResults,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    border: InputBorder.none,
+                    hintText: 'Search a trip..',
+                  ),
                 ),
               ),
             ),
