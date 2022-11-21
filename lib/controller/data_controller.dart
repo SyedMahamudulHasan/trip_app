@@ -12,7 +12,7 @@ class DataController extends ChangeNotifier {
   List<DriverModel> driver_list = [];
   bool isLoading = true;
   final String geturl = '$baseUrl/admin/all-trips';
-  final String postUrl = '$baseUrl/get-all-drives/';
+  final String postUrl = '$baseUrl/admin/set-trip-status/';
 
   Future<void> getAllTrips() async {
     isLoading = false;
