@@ -275,17 +275,21 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                                 vertical: 8,
                                                 horizontal: 16,
                                               ),
-                                              height: size.height * 0.05,
+                                              height: size.height * 0.045,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                                 color:
                                                     KConstColors.secondaryColor,
                                               ),
-                                              child: Text(
+                                              child: const Text(
                                                 "Assign Driver",
-                                                style:
-                                                    KConstTextStyle.buttonText,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 16,
+                                                  color:
+                                                      KConstColors.primaryColor,
+                                                ),
                                               ),
                                             ),
                                           )
