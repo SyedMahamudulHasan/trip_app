@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/view/dash_board.dart';
@@ -85,6 +86,7 @@ class _DriverListScreenState extends State<DriverListScreen> {
             child: ListView.builder(
                 itemCount: driverList.length,
                 itemBuilder: (context, index) {
+                  /// =====================>>> expanded button
                   return GestureDetector(
                     onTap: () {
                       setState(() {
@@ -283,20 +285,11 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                             ],
                                           ),
                                           GestureDetector(
-                                            onTap: () {
-                                              print('I am clicked');
-
-                                              ///==================================>>>> booking driver
-                                              print(
-                                                  " trip id : ${widget.tripId}");
-                                              print(
-                                                  " trip id : ${driverList[index].driver!.id}");
-                                              print(
-                                                  " trip id : ${driverList[index].vehicle!.id}");
-
-                                              Provider.of<DataController>(
-                                                      context,
-                                                      listen: false)
+                                            onTap: () async {
+                                              final isBooked = await Provider
+                                                      .of<DataController>(
+                                                          context,
+                                                          listen: false)
                                                   .assignVehicle({
                                                 "trip_id": widget.tripId,
                                                 "driver_id": driverList[index]
@@ -306,6 +299,42 @@ class _DriverListScreenState extends State<DriverListScreen> {
                                                     .vehicle!
                                                     .id,
                                               });
+
+                                              if (isBooked) {
+                                                QuickAlert.show(
+                                                    context: context,
+                                                    type:
+                                                        QuickAlertType.success,
+                                                    confirmBtnColor:
+                                                        KConstColors
+                                                            .secondaryColor,
+                                                    text:
+                                                        'Driver Booked Successfully!',
+                                                    onConfirmBtnTap: () {
+                                                      setState(() {
+                                                        isExpanded[driverList[
+                                                                    index]
+                                                                .driver!
+                                                                .id
+                                                                .toString()] =
+                                                            !isExpanded[
+                                                                driverList[
+                                                                        index]
+                                                                    .driver!
+                                                                    .id
+                                                                    .toString()]!;
+                                                      });
+                                                      Navigator.pop(context);
+                                                    });
+                                              } else {
+                                                QuickAlert.show(
+                                                  context: context,
+                                                  type: QuickAlertType.error,
+                                                  title: 'Oops...',
+                                                  text:
+                                                      'Sorry, something went wrong',
+                                                );
+                                              }
                                             },
                                             child: Container(
                                               padding:

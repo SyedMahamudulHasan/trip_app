@@ -13,7 +13,8 @@ class DataController extends ChangeNotifier {
   List<DriverModel> driver_list = [];
   bool isLoading = true;
   UserDB localDatabase = UserDB();
-  String userEmail = "afsan@gmail.com";
+  String userEmail = "";
+  String? userToken;
   final String geturl = '$baseUrl/admin/all-trips';
   final String postUrl = '$baseUrl/admin/set-trip-status/';
 
@@ -50,6 +51,7 @@ class DataController extends ChangeNotifier {
             "access": response.data["access"],
           });
           userEmail = response.data["email"];
+          userToken = response.data['access'];
           isLogged = true;
         }
       }
@@ -97,22 +99,22 @@ class DataController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> assignVehicle(dynamic data) async {
+  Future<bool> assignVehicle(dynamic data) async {
     //final token = await localDatabase.getUserData(userEmail);
-    final token =
+    final token = userToken ??
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY5MDMzOTExLCJpYXQiOjE2NjkwMzIxMTEsImp0aSI6IjY1YWExZTQxMzhhOTRhMjZhYmY3Nzc1ZTQ2OGMyYWVmIiwidXNlcl9pZCI6IjUwMmNlMjJiLWJlYjUtNDQyYi04OGU2LTIzYjlkMmJjN2UzZSJ9.OMMNSk6dIw2SrklvM9eiUj55C2AT9_aStc6At16yeZg";
     try {
       final response = await connectionHelper.postDataWithHeaders(
           "$baseUrl/admin/assign-vehicle/", data, token);
       if (response != null) {
         if (response.statusCode == 200) {
-          print(response.data);
+          return true;
         }
-        print(response.statusCode);
-        print(response.data);
+        return false;
       }
     } catch (e) {
       throw "Trip not booked $e";
     }
+    return false;
   }
 }
