@@ -72,20 +72,15 @@ detailsBottomSheet(context, size, trip, tripId) {
                       width: 0.45),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Kwidgets.tripdataItem(
-                      dataType: 'Pickup point',
-                      data: tripInfo.pickupLocationName,
-                      size: size,
-                      width: 0.45),
-                  Kwidgets.tripdataItem(
-                      dataType: 'Destination',
-                      data: tripInfo.destinationName,
-                      size: size,
-                      width: 0.45),
-                ],
+              Kwidgets.tripdataItem(
+                dataType: 'Pickup point',
+                data: tripInfo.pickupLocationName,
+                size: size,
+              ),
+              Kwidgets.tripdataItem(
+                dataType: 'Destination',
+                data: tripInfo.destinationName,
+                size: size,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

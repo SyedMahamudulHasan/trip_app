@@ -15,8 +15,9 @@ class DataController extends ChangeNotifier {
   UserDB localDatabase = UserDB();
   String userEmail = "";
   String? userToken;
-  final String geturl = '$baseUrl/admin/all-trips';
+  final String geturl = '$baseUrl/admin/all-trips/';
   final String postUrl = '$baseUrl/admin/set-trip-status/';
+  bool isDriver = true;
 
   Future<void> getAllTrips() async {
     isLoading = false;
@@ -84,7 +85,7 @@ class DataController extends ChangeNotifier {
     isLoading = false;
 
     Response<dynamic>? response = await connectionHelper
-        .getData("$baseUrl/admin/show-drivers-for-this-trip/$tripID");
+        .getData("$baseUrl/admin/show-drivers-for-this-trip/$tripID/");
 
     if (response != null) {
       if (response.statusCode == 200) {
@@ -92,6 +93,11 @@ class DataController extends ChangeNotifier {
             .map((e) => DriverModel.fromJson(e))
             .toList();
         log("==============>>>>>> driver data fetched");
+        isLoading = true;
+        notifyListeners();
+      } else if (response.statusCode == 404) {
+        print("==================>>>>> ${response.data}");
+        isDriver = false;
         isLoading = true;
         notifyListeners();
       }
@@ -110,6 +116,7 @@ class DataController extends ChangeNotifier {
         if (response.statusCode == 200) {
           return true;
         }
+
         return false;
       }
     } catch (e) {

@@ -177,7 +177,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   child: Visibility(
                     visible: data.isLoading,
                     replacement: const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: KConstColors.secondaryColor,
+                      ),
                     ),
                     child: ListView.builder(
                       // shrinkWrap: true,

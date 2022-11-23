@@ -13,8 +13,6 @@ Map<String, String> statusIcon = {
   "completed": "assets/icons/completed.png",
 };
 
-
-
 class Kwidgets {
   static Container tripdataItem({dataType, data, size, width = 1}) {
     return Container(
@@ -26,8 +24,8 @@ class Kwidgets {
         color: Colors.white,
         borderRadius: BorderRadius.circular(08),
         border: Border.all(
-          color: KConstColors.secondaryColor,
-          width: 2,
+          color: Colors.grey, //KConstColors.inputFieldBorderColor,
+          //width: 2,
         ),
         // boxShadow: [
         //   BoxShadow(
