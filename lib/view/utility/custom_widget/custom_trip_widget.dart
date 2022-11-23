@@ -50,8 +50,8 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
         ),
         isButton
             ? SizedBox(
-                height: 40,
-                width: 40,
+                height: 30,
+                width: 30,
                 child: Image.asset(
                     statusIcon[widget.trip.tripStatus as String].toString()))
             : const SizedBox()

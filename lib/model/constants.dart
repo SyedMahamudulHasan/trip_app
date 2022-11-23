@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:trip_app/view/utility/constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const String baseUrl = 'http://192.168.0.180:6969/api/v1';
 
@@ -11,6 +12,7 @@ Map<String, String> statusIcon = {
   "denied": "assets/icons/rejected.png",
   "completed": "assets/icons/completed.png",
 };
+
 
 
 class Kwidgets {
