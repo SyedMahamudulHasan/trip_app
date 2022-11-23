@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trip_app/view/utility/constants.dart';
 
-class CustomTextInputfield extends StatelessWidget {
+class CustomTextInputfield extends StatefulWidget {
   const CustomTextInputfield({
     Key? key,
     this.keyBoardType,
@@ -29,6 +29,13 @@ class CustomTextInputfield extends StatelessWidget {
   final TextInputAction? textInputAction;
   final bool isEnabled;
 
+  @override
+  State<CustomTextInputfield> createState() => _CustomTextInputfieldState();
+}
+
+class _CustomTextInputfieldState extends State<CustomTextInputfield> {
+  bool isVisible = false;
+
   OutlineInputBorder inputFieldBorder({errorColor}) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(24),
@@ -37,25 +44,45 @@ class CustomTextInputfield extends StatelessWidget {
     );
   }
 
+  _isPasswordVisible() {}
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: textController,
-      keyboardType: keyBoardType,
-      enabled: isEnabled,
-      textInputAction: textInputAction,
-
+      controller: widget.textController,
+      keyboardType: widget.keyBoardType,
+      enabled: widget.isEnabled,
+      textInputAction: widget.textInputAction,
+      obscureText: widget.isPassword
+          ? isVisible
+              ? false
+              : true
+          : false,
       decoration: InputDecoration(
         border: InputBorder.none,
         prefixIcon: Icon(
-          prefixIcon,
+          widget.prefixIcon,
           color: KConstColors.iconColor,
         ),
-
-        ///
-
-        hintText: hintText,
-
+        suffixIcon: widget.isPassword
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
+                icon: isVisible
+                    ? const Icon(
+                        Icons.visibility,
+                        color: KConstColors.iconColor,
+                      )
+                    : const Icon(
+                        Icons.visibility_off,
+                        color: KConstColors.iconColor,
+                      ),
+              )
+            : const SizedBox(),
+        hintText: widget.hintText,
         focusedBorder: inputFieldBorder(),
         enabledBorder: inputFieldBorder(),
         disabledBorder: inputFieldBorder(),
@@ -64,10 +91,10 @@ class CustomTextInputfield extends StatelessWidget {
         ),
         focusedErrorBorder: inputFieldBorder(),
       ),
-      validator: validator,
-      // onFieldSubmitted: (newValue) {
-      //   FocusScope.of(context).unfocus();
-      // },
+      validator: widget.validator,
+      onFieldSubmitted: (newValue) {
+        FocusScope.of(context).unfocus();
+      },
     );
   }
 }
