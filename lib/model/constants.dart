@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:trip_app/view/utility/constants.dart';
 
 const String baseUrl = 'http://192.168.0.180:6969/api/v1';
 
@@ -10,6 +11,7 @@ Map<String, String> statusIcon = {
   "denied": "assets/icons/rejected.png",
   "completed": "assets/icons/completed.png",
 };
+
 
 class Kwidgets {
   static Container tripdataItem({dataType, data, size, width = 1}) {
@@ -21,15 +23,18 @@ class Kwidgets {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(08),
-        border: Border.all(color: Colors.black12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blueGrey.withOpacity(0.8),
-            //spreadRadius: 0,
-            blurRadius: 1.5,
-            offset: const Offset(1, 2),
-          ),
-        ],
+        border: Border.all(
+          color: KConstColors.secondaryColor,
+          width: 2,
+        ),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.blueGrey.withOpacity(0.8),
+        //     //spreadRadius: 0,
+        //     blurRadius: 1.5,
+        //     offset: const Offset(1, 2),
+        //   ),
+        // ],
       ),
       child: Row(
         //mainAxisSize: MainAxisSize.max,

@@ -8,8 +8,7 @@ import '../model/trip_model.dart';
 
 detailsBottomSheet(context, size, trip, tripId) {
   showModalBottomSheet(
-      backgroundColor:
-          const Color.fromARGB(255, 216, 216, 250).withOpacity(0.5),
+      backgroundColor: KConstColors.primaryColor,
       isScrollControlled: true,
       context: context,
       builder: ((context) {
@@ -159,7 +158,7 @@ detailsBottomSheet(context, size, trip, tripId) {
                                 DriverListScreen(tripId: tripId)),
                       );
                     },
-                    child: const Text('Assign Drive'),
+                    child: const Text('Select Drive'),
                   )
                 ],
               )

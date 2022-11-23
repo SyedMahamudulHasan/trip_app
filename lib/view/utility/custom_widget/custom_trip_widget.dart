@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/constants.dart';
 import 'package:trip_app/model/trip_model.dart';
+import 'package:trip_app/view/utility/constants.dart';
 
 class CustomTripWidget extends StatefulWidget {
   const CustomTripWidget({
@@ -26,6 +28,7 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
   Widget tripDataWidget(
       {size, icon, text, isButton = false, required iconColor}) {
     return Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
@@ -38,7 +41,10 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
               SizedBox(
                 width: size.width * 0.02,
               ),
-              Text(text),
+              AutoSizeText(
+                text,
+                maxLines: 2,
+              ),
             ],
           ),
         ),
@@ -116,7 +122,8 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
                 "status": "completed",
               });
             }),
-            backgroundColor: const Color(0xFF2e3253).withOpacity(0.5),
+            backgroundColor: KConstColors
+                .secondaryColor, //const Color(0xFF2e3253).withOpacity(0.5),
             foregroundColor: Colors.white,
             icon: Icons.check_circle_outline,
             label: 'Completed',
@@ -128,35 +135,37 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
         //margin: const EdgeInsets.only(bottom: 10),
         //height: size.height * 0.15,
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(08),
-            border: Border.all(color: Colors.black12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.blueGrey.withOpacity(0.7),
-                spreadRadius: 0,
-                blurRadius: 2,
-                offset: const Offset(1, 3),
-              ),
-            ]),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(08),
+          border: Border.all(color: Colors.black12),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.blueGrey.withOpacity(0.7),
+          //     spreadRadius: 0,
+          //     blurRadius: 2,
+          //     offset: const Offset(1, 3),
+          //   ),
+          // ],
+        ),
         child: Column(
           children: [
             tripDataWidget(
               size: widget.size,
-              icon: FeatherIcons.key,
-              text: widget.trip.requestTripId,
-              iconColor: Colors.black,
+              //icon: FeatherIcons.key,
+              text: "${widget.trip.requestTripId}",
+              iconColor: Colors.grey,
+            ),
+            tripDataWidget(
+              size: widget.size,
+              icon: FeatherIcons.user,
+              text: tripInformation.fullName,
+              isButton: true,
+              iconColor: KConstColors.secondaryColor,
             ),
             tripDataWidget(
                 size: widget.size,
-                icon: FeatherIcons.user,
-                text: tripInformation.fullName,
-                isButton: true,
-                iconColor: Colors.blue),
-            tripDataWidget(
-                size: widget.size,
                 icon: FeatherIcons.mapPin,
-                iconColor: Colors.greenAccent,
+                iconColor: Colors.redAccent,
                 text:
                     "${tripInformation.pickupLocationName} to ${tripInformation.destinationName}"),
           ],

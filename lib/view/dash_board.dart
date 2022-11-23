@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/trip_model.dart';
 import 'package:trip_app/view/details_bottomSheet.dart';
+import 'package:trip_app/view/utility/constants.dart';
 
 import 'package:trip_app/view/utility/custom_widget/custom_trip_widget.dart';
 
@@ -112,19 +113,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 //width: size.width,
-                height: size.height * 0.08,
+                height: size.height * 0.07,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.blueGrey.withOpacity(0.7),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: const Offset(2, 5),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: KConstColors.inputFieldBorderColor,
+                      width: 2.0,
+                    )
+                    // boxShadow: [
+                    //   // BoxShadow(
+                    //   //   color: Colors.blueGrey.withOpacity(0.7),
+                    //   //   spreadRadius: 1,
+                    //   //   blurRadius: 4,
+                    //   //   offset: const Offset(2, 5),
+                    //   // ),
+                    // ],
                     ),
-                  ],
-                ),
                 child: Center(
                   child: TextField(
                     controller: _controller,
