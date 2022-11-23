@@ -16,6 +16,7 @@ class CustomTextInputfield extends StatefulWidget {
     this.screenName,
     this.textInputAction,
     this.isEnabled = true,
+    required this.isAuthError,
   }) : super(key: key);
 
   final TextInputType? keyBoardType;
@@ -28,6 +29,7 @@ class CustomTextInputfield extends StatefulWidget {
   final String? screenName;
   final TextInputAction? textInputAction;
   final bool isEnabled;
+  final bool isAuthError;
 
   @override
   State<CustomTextInputfield> createState() => _CustomTextInputfieldState();
@@ -64,6 +66,7 @@ class _CustomTextInputfieldState extends State<CustomTextInputfield> {
           widget.prefixIcon,
           color: KConstColors.iconColor,
         ),
+        errorText: widget.isAuthError ? "Invalid email or password" : null,
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {

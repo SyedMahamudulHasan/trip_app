@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   bool islogged = false;
+  bool authError = false;
 
   @override
   void initState() {
@@ -74,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyBoardType: TextInputType.emailAddress,
                       screenName: "login",
                       textInputAction: TextInputAction.next,
+                      isAuthError: authError,
                       validator: (value) {
                         if (value!.isNotEmpty) {
                           return null;
@@ -91,6 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       isPassword: true,
                       screenName: "login",
                       textInputAction: TextInputAction.done,
+                      isAuthError: authError,
                       validator: (value) {
                         if (value!.isNotEmpty) {
                           return null;
@@ -128,12 +131,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacementNamed(
                                 context, DashBoardScreen.id);
                           } else {
-                            QuickAlert.show(
-                              context: context,
-                              type: QuickAlertType.error,
-                              title: 'Oops...',
-                              text: 'Sorry, user data not found',
-                            );
+                            setState(() {
+                              authError = !authError;
+                            });
                           }
                         }
                       },
