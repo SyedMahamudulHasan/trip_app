@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_app/model/constants.dart';
 
 class CustomtextInputField extends StatelessWidget {
   const CustomtextInputField(
@@ -7,7 +8,8 @@ class CustomtextInputField extends StatelessWidget {
       required this.hintText,
       required this.icon,
       required this.isPassword,
-      required this.onValidate, required this.keyBoardType});
+      required this.onValidate,
+      required this.keyBoardType});
 
   final TextEditingController inputController;
   final String hintText;
@@ -21,6 +23,7 @@ class CustomtextInputField extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Kcolor.secondaryColor),
       ),
       child: Center(
         child: TextFormField(
@@ -28,9 +31,10 @@ class CustomtextInputField extends StatelessWidget {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,
-            prefixIcon: Icon(icon),
+            prefixIcon: Icon(icon, color: Kcolor.secondaryColor),
           ),
           validator: onValidate,
+        
         ),
       ),
     );

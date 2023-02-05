@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trip_app/view/utility/auth_button.dart';
+import 'package:trip_app/view/utility/custom_widget/auth_appbar.dart';
 import 'package:trip_app/view/utility/custom_widget/custom_text_input_field.dart';
 import 'package:trip_app/view/utility/input_validator.dart';
 
@@ -48,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ///===========================> welcome msg
             AuthAppBar(
                 size: size, title: 'Welcome back! Glad \nto see you, Again!'),
+            SizedBox(height: size.height * 0.1),
 
             ///=============================> inputfield
             Form(
@@ -64,8 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       return FormValidator.emailValidator(value);
                     },
                   ),
-                  //Text(ref.watch(connectionProvider).apiErrors["login"] ?? ""),
-
+                  SizedBox(height: size.height * 0.02),
                   CustomtextInputField(
                     inputController: _passwordController,
                     hintText: "Enter your password",
@@ -76,10 +77,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       return FormValidator.passwordValidation(value);
                     },
                   ),
-                  //Text(ref.watch(connectionProvider).apiErrors["login"] ?? ""),
+                  SizedBox(height: size.height * 0.02),
                 ],
               ),
             ),
+            SizedBox(height: size.height * 0.1),
 
             ///=========================================> buttons
             AuthButton(
