@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:trip_app/view/utility/auth_button.dart';
 import 'package:trip_app/view/utility/custom_widget/custom_text_input_field.dart';
+import 'package:trip_app/view/utility/input_validator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
