@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:trip_app/view/utility/auth_button.dart';
+import 'package:trip_app/view/utility/custom_widget/custom_text_input_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -51,53 +53,30 @@ class _LoginScreenState extends State<LoginScreen> {
               key: _formkey,
               child: Column(
                 children: [
-                  Helper.spacer(size, 0.06),
-                  CustomTextInputfield(
-                    textController: _emailController,
+                  CustomtextInputField(
+                    inputController: _emailController,
                     hintText: "Enter your email",
-                    prefixIcon: Icons.mail_outline,
+                    icon: Icons.mail_outline,
                     keyBoardType: TextInputType.emailAddress,
-                    screenName: "login",
-                    validator: (value) {
+                    isPassword: false,
+                    onValidate: (value) {
                       return FormValidator.emailValidator(value);
                     },
                   ),
                   //Text(ref.watch(connectionProvider).apiErrors["login"] ?? ""),
 
-                  Helper.spacer(size, 0.01),
-                  CustomTextInputfield(
-                    textController: _passwordController,
+                  CustomtextInputField(
+                    inputController: _passwordController,
                     hintText: "Enter your password",
-                    prefixIcon: Icons.lock,
+                    icon: Icons.lock,
                     isPassword: true,
-                    screenName: "login",
-                    validator: (value) {
+                    keyBoardType: TextInputType.text,
+                    onValidate: (value) {
                       return FormValidator.passwordValidation(value);
                     },
                   ),
                   //Text(ref.watch(connectionProvider).apiErrors["login"] ?? ""),
-                  Helper.spacer(size, 0.03),
                 ],
-              ),
-            ),
-
-            ///=====================================> forgetbutton
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  ///tracking of going to the forget screens
-                  ref.read(isForgetScrren.state).state = true;
-
-                  Navigator.pushNamed(context, FPEmailScreen.id);
-                },
-                child: const AutoSizeText(
-                  'Forget Password?',
-                  style: TextStyle(
-                    color: Color(0xff6A707C),
-                    fontSize: 14,
-                  ),
-                ),
               ),
             ),
 
@@ -108,20 +87,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (FormValidator.validateAndSave(_formkey)) {}
               },
             ),
-            // Helper.spacer(size, 0.02),
-            AuthtextButton(
-              msg: "Don't have an account?",
-              buttonText: 'Register Now',
-              onTriger: () {
-                Navigator.pushReplacementNamed(context, SignupScreen.id);
-              },
-            ),
-            Helper.spacer(size, 0.30),
-
-            ///===============================> policy and service
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: PublicyAndServiceWidget(size: size)),
           ],
         ),
       ),

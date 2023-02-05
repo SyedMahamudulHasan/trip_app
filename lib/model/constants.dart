@@ -11,6 +11,11 @@ Map<String, String> statusIcon = {
   "completed": "assets/icons/completed.png",
 };
 
+class Kcolor {
+  static const Color primaryColor = Color(0xFFf5f5f5);
+  static const Color secondaryColor = Color(0xFF30429A);
+}
+
 class Kwidgets {
   static Container tripdataItem({dataType, data, size, width = 1}) {
     return Container(
