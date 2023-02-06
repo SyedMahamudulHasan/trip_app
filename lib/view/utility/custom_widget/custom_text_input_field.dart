@@ -20,23 +20,42 @@ class CustomtextInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Kcolor.secondaryColor),
-      ),
-      child: Center(
-        child: TextFormField(
-          controller: inputController,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hintText,
-            prefixIcon: Icon(icon, color: Kcolor.secondaryColor),
+    return TextFormField(
+      controller: inputController,
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: hintText,
+        prefixIcon: Icon(icon, color: Kcolor.secondaryColor),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: Kcolor.secondaryColor,
+            width: 2.0,
           ),
-          validator: onValidate,
-        
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: Kcolor.secondaryColor,
+            width: 2.0,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: Kcolor.secondaryColor,
+            width: 2.0,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: Kcolor.secondaryColor,
+            width: 2.0,
+          ),
         ),
       ),
+      validator: onValidate,
     );
   }
 }
