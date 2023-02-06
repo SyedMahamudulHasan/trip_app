@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_app/controller/connection_helper.dart';
+import 'package:trip_app/model/localDB.dart';
 import '../model/constants.dart';
 import '../model/trip_model.dart';
 
@@ -14,9 +15,12 @@ class DataController extends ChangeNotifier {
   final String geturl = '$baseUrl/all-trips';
   final String postUrl = '$baseUrl/set-trip-status/';
   bool isUserLogin = false;
+  bool isLoginError = false;
 
   Future<void> getUserLogin(String email, String password) async {
     isUserLogin = true;
+    isLoginError = false;
+    notifyListeners();
 
     final response = await connectionHelper.postData("${baseUrl}/login/", {
       "email": email,
@@ -25,9 +29,13 @@ class DataController extends ChangeNotifier {
 
     if (response != null) {
       if (response.statusCode == 200) {
-        print(response.data["access"]);
-        print(response.data["refresh"]);
+        userData.setToken(response.data["access"], response.data["refresh"]);
+        isUserLogin = false;
+        notifyListeners();
       }
+      isUserLogin = false;
+      isLoginError = false;
+      notifyListeners();
     }
   }
 

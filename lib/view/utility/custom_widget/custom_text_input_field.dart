@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_app/model/constants.dart';
 
-class CustomtextInputField extends StatelessWidget {
+class CustomtextInputField extends StatefulWidget {
   const CustomtextInputField(
       {super.key,
       required this.inputController,
@@ -19,13 +19,39 @@ class CustomtextInputField extends StatelessWidget {
   final TextInputType keyBoardType;
 
   @override
+  State<CustomtextInputField> createState() => _CustomtextInputFieldState();
+}
+
+class _CustomtextInputFieldState extends State<CustomtextInputField> {
+  bool isPasswordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: inputController,
+      controller: widget.inputController,
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: hintText,
-        prefixIcon: Icon(icon, color: Kcolor.secondaryColor),
+        hintText: widget.hintText,
+        prefixIcon: Icon(widget.icon, color: Kcolor.secondaryColor),
+        suffixIcon: widget.isPassword
+            //added visible password.
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    isPasswordVisible = !isPasswordVisible;
+                  });
+                },
+                icon: isPasswordVisible
+                    ? const Icon(
+                        Icons.visibility,
+                        color: Kcolor.secondaryColor,
+                      )
+                    : const Icon(
+                        Icons.visibility_off,
+                        color: Kcolor.secondaryColor,
+                      ),
+              )
+            : const SizedBox(),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
@@ -62,7 +88,7 @@ class CustomtextInputField extends StatelessWidget {
           ),
         ),
       ),
-      validator: onValidate,
+      validator: widget.onValidate,
     );
   }
 }
