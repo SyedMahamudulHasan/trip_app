@@ -14,6 +14,7 @@ Map<String, String> statusIcon = {
 class Kcolor {
   static const Color primaryColor = Color(0xFFf5f5f5);
   static const Color secondaryColor = Color(0xFF30429A);
+  static const Color redColor = Color(0xffFF5E5C);
 }
 
 class Kwidgets {
