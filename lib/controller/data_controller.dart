@@ -18,7 +18,7 @@ class DataController extends ChangeNotifier {
   bool isLoginError = false;
 
   Future<void> getUserLogin(String email, String password) async {
-    isUserLogin = true;
+    isUserLogin = false;
     isLoginError = false;
     notifyListeners();
 
@@ -28,9 +28,9 @@ class DataController extends ChangeNotifier {
     });
 
     if (response != null) {
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         userData.setToken(response.data["access"], response.data["refresh"]);
-        isUserLogin = false;
+        isUserLogin = true;
         notifyListeners();
       }
       isUserLogin = false;
