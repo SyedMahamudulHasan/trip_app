@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/view/utility/auth_button.dart';
@@ -20,11 +19,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  FToast? fToast;
 
   @override
   void initState() {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    fToast = FToast();
+    fToast!.init(context);
     super.initState();
   }
 
@@ -93,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Provider.of<DataController>(context, listen: false)
                       .getUserLogin(
                           _emailController.text, _passwordController.text);
+                  if (Provider.of<DataController>(context).isLoginError) {}
                 }
               },
             ),

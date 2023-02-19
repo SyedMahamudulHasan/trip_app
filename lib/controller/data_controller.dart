@@ -34,7 +34,7 @@ class DataController extends ChangeNotifier {
         notifyListeners();
       }
       isUserLogin = false;
-      isLoginError = false;
+      isLoginError = true;
       notifyListeners();
     }
   }
