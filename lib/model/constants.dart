@@ -15,6 +15,7 @@ class Kcolor {
   static const Color primaryColor = Color(0xFFf5f5f5);
   static const Color secondaryColor = Color(0xFF30429A);
   static const Color redColor = Color(0xffFF5E5C);
+  static const Color inputFieldBorderColor = Color(0xff3772ff);
 }
 
 class Kwidgets {
@@ -94,3 +95,56 @@ class Kwidgets {
     ),
   );
 }
+
+class KConstTextStyle {
+  static const TextStyle SubHeader = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 25,
+    //color: MYEColors.secondaryColor,
+  );
+
+  static TextStyle forgetScreenMsg = const TextStyle(
+    color: Color(0xff8391A1),
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const TextStyle akBodyText = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+    //color: MYEColors.textColor,
+  );
+
+  static const TextStyle akHintText = TextStyle(
+    fontSize: 16,
+    //color: MYEColors.hintColor,
+  );
+  static const TextStyle testFormLettering = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 18,
+    color: Colors.black,
+  );
+  static const TextStyle levelFormLettering = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 18,
+    // color: MYEColors.secondaryColor,
+  );
+
+  static TextStyle birthFieldText = const TextStyle(
+    fontFamily: "GT Walsheim Pro",
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: Color(0xff777E91),
+  );
+}
+
+const Icon backButton = Icon(
+  Icons.arrow_back_ios,
+  color: Colors.black,
+  size: 20,
+);
+const Icon menuButton = Icon(
+  Icons.menu_outlined,
+  color: Colors.black,
+  size: 20,
+);

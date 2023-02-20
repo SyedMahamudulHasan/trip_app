@@ -4,6 +4,7 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_app/controller/connection_helper.dart';
+import 'package:trip_app/model/driver_list.dart';
 import 'package:trip_app/model/localDB.dart';
 import '../model/constants.dart';
 import '../model/trip_model.dart';
@@ -19,6 +20,7 @@ class DataController extends ChangeNotifier {
   bool isUserLogin = false;
   bool isLoginError = false;
   List<DriverModel> driver_list = [];
+  bool isDriver = false;
 
   Future<bool?> getUserLogin(String email, String password) async {
     isUserLogin = false;
@@ -86,13 +88,11 @@ class DataController extends ChangeNotifier {
     }
   }
 
-
-
   Future<void> getDriverList(String tripID) async {
     isLoading = false;
 
-    Response<dynamic>? response = await connectionHelper
-        .getData("$baseUrl/admin/show-drivers-for-this-trip/$tripID/");
+    Response<dynamic>? response = await connectionHelper.getData(
+        "http://192.168.0.249:8001/admin/api/v1/show-drivers-for-this-trip/$tripID/");
 
     if (response != null) {
       if (response.statusCode == 200) {

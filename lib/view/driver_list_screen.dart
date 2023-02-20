@@ -1,7 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:trip_app/controller/data_controller.dart';
 import 'package:trip_app/model/constants.dart';
+import 'package:trip_app/view/dash_board.dart';
+import 'package:trip_app/view/utility/phone_util.dart';
 
 class DriverListScreen extends StatefulWidget {
   const DriverListScreen({super.key, required this.tripId});
@@ -73,7 +79,7 @@ class _DriverListScreenState extends State<DriverListScreen>
           visible: isLoading,
           replacement: const Center(
             child: CircularProgressIndicator(
-              color: KConstColors.secondaryColor,
+              color: Kcolor.secondaryColor,
             ),
           ),
           child: isDriver
@@ -116,7 +122,7 @@ class _DriverListScreenState extends State<DriverListScreen>
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
-                                  color: KConstColors.inputFieldBorderColor,
+                                  color: Kcolor.inputFieldBorderColor,
                                   width: 2,
                                 )
                                 // boxShadow: [
@@ -241,7 +247,8 @@ class _DriverListScreenState extends State<DriverListScreen>
                                                         .toString()),
                                                   ],
                                                 ),
-                                                Helper.spacer(size, 0.01),
+                                                SizedBox(
+                                                    height: size.height * 0.01),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -273,7 +280,8 @@ class _DriverListScreenState extends State<DriverListScreen>
                                                     ),
                                                   ],
                                                 ),
-                                                Helper.spacer(size, 0.01),
+                                                SizedBox(
+                                                    height: size.height * 0.01),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -328,9 +336,8 @@ class _DriverListScreenState extends State<DriverListScreen>
                                                           context: context,
                                                           type: QuickAlertType
                                                               .success,
-                                                          confirmBtnColor:
-                                                              KConstColors
-                                                                  .secondaryColor,
+                                                          confirmBtnColor: Kcolor
+                                                              .secondaryColor,
                                                           text:
                                                               'Driver Booked Successfully!',
                                                           onConfirmBtnTap: () {
@@ -371,8 +378,8 @@ class _DriverListScreenState extends State<DriverListScreen>
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8),
-                                                      color: KConstColors
-                                                          .secondaryColor,
+                                                      color:
+                                                          Kcolor.secondaryColor,
                                                     ),
                                                     child: const Text(
                                                       "Assign Driver",
@@ -380,8 +387,8 @@ class _DriverListScreenState extends State<DriverListScreen>
                                                         fontWeight:
                                                             FontWeight.w400,
                                                         fontSize: 16,
-                                                        color: KConstColors
-                                                            .primaryColor,
+                                                        color:
+                                                            Kcolor.primaryColor,
                                                       ),
                                                     ),
                                                   ),
