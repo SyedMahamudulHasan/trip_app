@@ -1,5 +1,5 @@
 class DriverModel {
-  double? distanceFromLocation;
+  int? distanceFromLocation;
   Driver? driver;
   Vehicle? vehicle;
 
@@ -12,7 +12,6 @@ class DriverModel {
     vehicle =
         json['vehicle'] != null ?  Vehicle.fromJson(json['vehicle']) : null;
   }
-
 }
 
 class Driver {
@@ -22,6 +21,7 @@ class Driver {
   String? email;
   String? phone;
   String? gender;
+  String? status;
 
   Driver(
       {this.id,
@@ -29,7 +29,8 @@ class Driver {
       this.lastName,
       this.email,
       this.phone,
-      this.gender});
+      this.gender,
+      this.status});
 
   Driver.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,7 +39,9 @@ class Driver {
     email = json['email'];
     phone = json['phone'];
     gender = json['gender'];
+    status = json['status'];
   }
+
 
 }
 
@@ -48,7 +51,7 @@ class Vehicle {
   String? vehicleType;
   int? maximumPassengers;
   String? luggageCapacity;
-  String? childSeat;
+  bool? hasChildSeat;
 
   Vehicle(
       {this.id,
@@ -56,7 +59,7 @@ class Vehicle {
       this.vehicleType,
       this.maximumPassengers,
       this.luggageCapacity,
-      this.childSeat});
+      this.hasChildSeat});
 
   Vehicle.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -64,7 +67,7 @@ class Vehicle {
     vehicleType = json['vehicle_type'];
     maximumPassengers = json['maximum_passengers'];
     luggageCapacity = json['luggage_capacity'];
-    childSeat = json['child_seat'];
+    hasChildSeat = json['has_child_seat'];
   }
 
 }

@@ -91,8 +91,11 @@ class DataController extends ChangeNotifier {
   Future<void> getDriverList(String tripID) async {
     isLoading = false;
 
-    Response<dynamic>? response = await connectionHelper.getData(
-        "http://192.168.0.249:8001/admin/api/v1/show-drivers-for-this-trip/$tripID/");
+    final token = await userData.getToken();
+
+    Response<dynamic>? response = await connectionHelper.getDataWithHeader(
+        "http://192.168.0.249:8001/admin/api/v1/show-drivers-for-trip/$tripID/",
+        token);
 
     if (response != null) {
       if (response.statusCode == 200) {

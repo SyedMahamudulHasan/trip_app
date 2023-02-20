@@ -76,7 +76,7 @@ class _DriverListScreenState extends State<DriverListScreen>
               .getDriverList(widget.tripId);
         },
         child: Visibility(
-          visible: isLoading,
+          visible: !isLoading,
           replacement: const Center(
             child: CircularProgressIndicator(
               color: Kcolor.secondaryColor,
