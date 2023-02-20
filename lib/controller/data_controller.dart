@@ -69,9 +69,10 @@ class DataController extends ChangeNotifier {
   }
 
   Future<bool> changeTripStatus(dynamic data) async {
+    final token = await userData.getToken();
     //isLoading = true;
-    Response<dynamic>? response =
-        await connectionHelper.postData(postUrl, data);
+    Response<dynamic>? response = await connectionHelper.postDataWithHeaders(
+        "http://192.168.0.249:8001/admin/api/v1/set-trip-status/", data, token);
 
     if (response!.statusCode == 200) {
       log('Data gache');

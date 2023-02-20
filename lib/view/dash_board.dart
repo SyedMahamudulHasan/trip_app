@@ -250,7 +250,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   : (filteredList.isEmpty
                                       ? data.trips.results![index]
                                       : filteredList[index]),
-                            ),
+                            ),                                                            
                             SizedBox(
                               height: size.width * 0.02,
                             )
