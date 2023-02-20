@@ -40,10 +40,18 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
         ),
         isButton
             ? SizedBox(
-                height: 40,
-                width: 40,
-                child: Image.asset(
-                    statusIcon[widget.trip.tripStatus as String].toString()))
+                // child: Image.asset(
+                //   statusIcon[widget.trip.tripStatus as String].toString(),
+                // ),
+                child: Flexible(
+                    child: Text(
+                  widget.trip.tripStatus!.toUpperCase(),
+                  style: const TextStyle(
+                    color: Kcolor.secondaryColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                )),
+              )
             : const SizedBox()
       ],
     );
@@ -86,10 +94,8 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
 
           SlidableAction(
             onPressed: ((context) {
-              controller.changeTripStatus({
-                "id": widget.trip.id.toString(),
-                "status": "approved"
-              });
+              controller.changeTripStatus(
+                  {"id": widget.trip.id.toString(), "status": "approved"});
             }),
             backgroundColor: const Color(0xFF21B7CA),
             foregroundColor: Colors.white,
