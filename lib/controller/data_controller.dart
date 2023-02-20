@@ -18,6 +18,7 @@ class DataController extends ChangeNotifier {
   final String postUrl = '$baseUrl/set-trip-status/';
   bool isUserLogin = false;
   bool isLoginError = false;
+  List<DriverModel> driver_list = [];
 
   Future<bool?> getUserLogin(String email, String password) async {
     isUserLogin = false;
@@ -83,5 +84,50 @@ class DataController extends ChangeNotifier {
       log(response.statusCode.toString());
       return false;
     }
+  }
+
+
+
+  Future<void> getDriverList(String tripID) async {
+    isLoading = false;
+
+    Response<dynamic>? response = await connectionHelper
+        .getData("$baseUrl/admin/show-drivers-for-this-trip/$tripID/");
+
+    if (response != null) {
+      if (response.statusCode == 200) {
+        driver_list = (response.data as List)
+            .map((e) => DriverModel.fromJson(e))
+            .toList();
+        log("==============>>>>>> driver data fetched");
+        isLoading = true;
+        notifyListeners();
+      } else if (response.statusCode == 404) {
+        print("==================>>>>> ${response.data}");
+        isDriver = false;
+        isLoading = true;
+        notifyListeners();
+      }
+    }
+    notifyListeners();
+  }
+
+  Future<bool> assignVehicle(dynamic data) async {
+    //final token = await localDatabase.getUserData(userEmail);
+    final token = await userData.getToken();
+    try {
+      final response = await connectionHelper.postDataWithHeaders(
+          "$baseUrl/admin/assign-vehicle/", data, token);
+      if (response != null) {
+        if (response.statusCode == 200) {
+          return true;
+        }
+
+        return false;
+      }
+    } catch (e) {
+      throw "Trip not booked $e";
+    }
+    return false;
   }
 }
