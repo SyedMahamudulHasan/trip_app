@@ -16,7 +16,7 @@ class CustomTripWidget extends StatefulWidget {
 
   final Size size;
   final int index;
-  final TripModel trip;
+  final Results trip;
 
   @override
   State<CustomTripWidget> createState() => _CustomTripWidgetState();
@@ -49,11 +49,9 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final TripInformation tripInformation =
-        widget.trip.tripInformation as TripInformation;
+    final Results results = widget.trip;
     final controller = Provider.of<DataController>(context, listen: false);
     bool isPost = false;
     return Slidable(
@@ -70,7 +68,7 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
           SlidableAction(
             onPressed: ((context) async {
               isPost = await controller.changeTripStatus({
-                "id": widget.trip.requestTripId.toString(),
+                "id": widget.trip.id.toString(),
                 "status": "denied",
               });
 
@@ -89,7 +87,7 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
           SlidableAction(
             onPressed: ((context) {
               controller.changeTripStatus({
-                "id": widget.trip.requestTripId.toString(),
+                "id": widget.trip.id.toString(),
                 "status": "approved"
               });
             }),
@@ -109,7 +107,7 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
           SlidableAction(
             onPressed: ((context) {
               controller.changeTripStatus({
-                "id": widget.trip.requestTripId.toString(),
+                "id": widget.trip.id.toString(),
                 "status": "completed",
               });
             }),
@@ -141,17 +139,17 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
             tripDataWidget(
               size: widget.size,
               icon: FeatherIcons.key,
-              text: widget.trip.requestTripId,
+              text: widget.trip.id,
             ),
             tripDataWidget(
                 size: widget.size,
                 icon: FeatherIcons.user,
-                text: tripInformation.fullName,
+                text: results.firstName,
                 isButton: true),
             tripDataWidget(
                 size: widget.size,
                 icon: FeatherIcons.mapPin,
-                text: tripInformation.address),
+                text: results.pickupLocationName),
           ],
         ),
       ),

@@ -10,7 +10,7 @@ detailsBottomSheet(context, size, trip) {
     isScrollControlled: true,
     context: context,
     builder: ((context) {
-      final TripInformation tripInfo = trip.tripInformation as TripInformation;
+      final Results tripInfo = trip;
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -29,16 +29,17 @@ detailsBottomSheet(context, size, trip) {
           SizedBox(
             height: size.height * 0.02,
           ),
+          Kwidgets.tripdataItem(dataType: 'Trip id', data: trip.id, size: size),
           Kwidgets.tripdataItem(
-              dataType: 'Trip id', data: trip.requestTripId, size: size),
-          Kwidgets.tripdataItem(
-              dataType: 'Name', data: tripInfo.fullName, size: size),
+              dataType: 'Name', data: tripInfo.firstName, size: size),
           Kwidgets.tripdataItem(
               dataType: 'Email', data: tripInfo.email, size: size),
           Kwidgets.tripdataItem(
               dataType: "phone", data: tripInfo.phone, size: size),
           Kwidgets.tripdataItem(
-              dataType: "address", data: tripInfo.address, size: size),
+              dataType: "address",
+              data: tripInfo.pickupLocationName,
+              size: size),
 
           ///===============================web url
 
@@ -52,30 +53,25 @@ detailsBottomSheet(context, size, trip) {
             children: [
               Kwidgets.tripdataItem(
                   dataType: "Passengers",
-                  data: tripInfo.numberOfPeople.toString(),
+                  data: tripInfo.numberOfPassengers.toString(),
                   size: size,
                   width: 0.45),
-              Kwidgets.tripdataItem(
-                  dataType: "Childrens",
-                  data: tripInfo.childSeat.toString(),
-                  size: size,
-                  width: 0.45),
+              // Kwidgets.tripdataItem(
+              //     dataType: "Childrens",
+              //     data: tripInfo.childSeat.toString(),
+              //     size: size,
+              //     width: 0.45),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Kwidgets.tripdataItem(
-                  dataType: 'Pickup point',
-                  data: tripInfo.pickupPoint,
-                  size: size,
-                  width: 0.45),
-              Kwidgets.tripdataItem(
-                  dataType: 'Destination',
-                  data: tripInfo.destination,
-                  size: size,
-                  width: 0.45),
-            ],
+          Kwidgets.tripdataItem(
+            dataType: 'Pickup point',
+            data: tripInfo.pickupLocationName,
+            size: size,
+          ),
+          Kwidgets.tripdataItem(
+            dataType: 'Destination',
+            data: tripInfo.dropOffLocationName,
+            size: size,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,14 +83,14 @@ detailsBottomSheet(context, size, trip) {
                   width: 0.45),
               Kwidgets.tripdataItem(
                   dataType: 'Time',
-                  data: tripInfo.time,
+                  data: tripInfo.pickupTime,
                   size: size,
                   width: 0.45),
             ],
           ),
           ////=======================================================stops
           Kwidgets.tripdataItem(
-              dataType: 'Stops', data: tripInfo.stops, size: size),
+              dataType: 'Stops', data: tripInfo.stopsSet, size: size),
 
           // tripdataItem(''),
 

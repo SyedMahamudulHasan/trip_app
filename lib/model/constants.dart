@@ -54,7 +54,7 @@ class Kwidgets {
               ? SizedBox(
                   child: Row(
                     children: (data as List)
-                        .map((stop) => Text(stop.toString() + ", "))
+                        .map((stop) => Text(stop.location + ", "))
                         .toList(),
                   ),
                 )

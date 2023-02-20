@@ -99,6 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             .getUserLogin(_emailController.text,
                                 _passwordController.text) as bool;
                         if (isValid) {
+                          //get the trip data.
+                          Provider.of<DataController>(context, listen: false)
+                              .getAllTrips();
                           Navigator.pushNamed(context, DashBoardScreen.id);
                         }
                       }

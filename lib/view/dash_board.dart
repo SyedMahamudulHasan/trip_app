@@ -32,21 +32,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     super.dispose();
   }
 
-  List<TripModel> searchResult = [];
+  List<Results> searchResult = [];
 
   ///===================================================> SearchResulrs
   void filterSearchResults(String query) {
-    List<TripModel> searchList = [];
+    List<Results> searchList = [];
 
-    searchList
-        .addAll(Provider.of<DataController>(context, listen: false).trips);
+    searchList.addAll(
+        Provider.of<DataController>(context, listen: false).trips.results!);
 
     if (query.isNotEmpty) {
-      List<TripModel> dummyListData = [];
+      List<Results> dummyListData = [];
       for (var item in searchList) {
-        if (item.tripInformation!.fullName!
-            .toLowerCase()
-            .contains(query.toLowerCase())) {
+        if (item.firstName!.toLowerCase().contains(query.toLowerCase())) {
           dummyListData.add(item);
         }
       }
@@ -63,15 +61,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 
   ///===================================================> filterSearchResulrs
-  List<TripModel> filteredList = [];
+  List<Results> filteredList = [];
   bool isFiltered = true;
   int statusNumber = 0;
 
   filterTripList() {
-    List<TripModel> dummyList = [];
-    List<TripModel> searchList = [];
-    searchList
-        .addAll(Provider.of<DataController>(context, listen: false).trips);
+    List<Results> dummyList = [];
+    List<Results> searchList = [];
+    searchList.addAll(
+        Provider.of<DataController>(context, listen: false).trips.results!);
 
     if (statusNumber >= 0 && statusNumber <= 3) {
       setState(() {
@@ -172,7 +170,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             SizedBox(
               height: size.height * 0.04,
             ),
-            ////==============================================> filter icon
+            //==============================================> filter icon
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -210,10 +208,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     // shrinkWrap: true,
                     itemCount: isFiltered
                         ? (searchResult.isEmpty
-                            ? data.trips.length
+                            ? data.trips.count
                             : searchResult.length)
                         : (filteredList.isEmpty
-                            ? data.trips.length
+                            ? data.trips.count
                             : filteredList.length),
 
                     itemBuilder: (context, index) => GestureDetector(
@@ -223,10 +221,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                             size,
                             isFiltered
                                 ? (searchResult.isEmpty
-                                    ? data.trips[index]
+                                    ? data.trips.results![index]
                                     : searchResult[index])
                                 : (filteredList.isEmpty
-                                    ? data.trips[index]
+                                    ? data.trips.results![index]
                                     : filteredList[index]),
                           );
 
@@ -247,10 +245,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                               index: index,
                               trip: isFiltered
                                   ? (searchResult.isEmpty
-                                      ? data.trips[index]
+                                      ? data.trips.results![index]
                                       : searchResult[index])
                                   : (filteredList.isEmpty
-                                      ? data.trips[index]
+                                      ? data.trips.results![index]
                                       : filteredList[index]),
                             ),
                             SizedBox(

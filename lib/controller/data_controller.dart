@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'dart:io';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_app/controller/connection_helper.dart';
@@ -10,9 +12,9 @@ import '../model/trip_model.dart';
 
 class DataController extends ChangeNotifier {
   ConnectionHelper connectionHelper = ConnectionHelper();
-  List<TripModel> trips = [];
+  TripModel trips = TripModel();
   bool isLoading = false;
-  final String geturl = '$baseUrl/all-trips';
+  final String geturl = '$baseUrl/admin/all-trips';
   final String postUrl = '$baseUrl/set-trip-status/';
   bool isUserLogin = false;
   bool isLoginError = false;
@@ -47,14 +49,17 @@ class DataController extends ChangeNotifier {
 
   Future<void> getAllTrips() async {
     isLoading = false;
+    notifyListeners();
 
-    Response<dynamic>? response = await connectionHelper.getData(geturl);
+    final token = await userData.getToken();
+
+    Response<dynamic>? response = await connectionHelper.getDataWithHeader(
+        "http://192.168.0.249:8001/admin/api/v1/all-trips/", token);
 
     if (response!.statusCode == 200) {
       log('Data fetched');
 
-      trips =
-          (response.data as List).map((e) => TripModel.fromJson(e)).toList();
+      trips = TripModel.fromJson(response.data);
       isLoading = true;
     } else {
       log('data didnot fetched');
