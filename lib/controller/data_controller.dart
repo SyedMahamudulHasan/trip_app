@@ -11,15 +11,16 @@ import '../model/trip_model.dart';
 class DataController extends ChangeNotifier {
   ConnectionHelper connectionHelper = ConnectionHelper();
   List<TripModel> trips = [];
-  bool isLoading = true;
+  bool isLoading = false;
   final String geturl = '$baseUrl/all-trips';
   final String postUrl = '$baseUrl/set-trip-status/';
   bool isUserLogin = false;
   bool isLoginError = false;
 
-  Future<void> getUserLogin(String email, String password) async {
+  Future<bool?> getUserLogin(String email, String password) async {
     isUserLogin = false;
     isLoginError = false;
+    isLoading = true;
     notifyListeners();
 
     final response = await connectionHelper.postData("${baseUrl}/login/", {
@@ -31,12 +32,17 @@ class DataController extends ChangeNotifier {
       if (response.statusCode == 200 || response.statusCode == 201) {
         userData.setToken(response.data["access"], response.data["refresh"]);
         isUserLogin = true;
+        isLoading = false;
         notifyListeners();
+        return true;
       }
       isUserLogin = false;
+      isLoading = false;
       isLoginError = true;
       notifyListeners();
+      return false;
     }
+    return false;
   }
 
   Future<void> getAllTrips() async {

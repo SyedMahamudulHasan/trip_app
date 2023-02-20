@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:trip_app/controller/data_controller.dart';
+import 'package:trip_app/view/dash_board.dart';
 import 'package:trip_app/view/utility/auth_button.dart';
 import 'package:trip_app/view/utility/custom_widget/auth_appbar.dart';
 import 'package:trip_app/view/utility/custom_widget/custom_text_input_field.dart';
@@ -19,14 +19,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  FToast? fToast;
 
   @override
   void initState() {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    fToast = FToast();
-    fToast!.init(context);
     super.initState();
   }
 
@@ -88,17 +85,25 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: size.height * 0.1),
 
             ///=========================================> buttons
-            AuthButton(
-              buttonText: "Login",
-              onTriger: () async {
-                if (FormValidator.validateAndSave(_formkey)) {
-                  Provider.of<DataController>(context, listen: false)
-                      .getUserLogin(
-                          _emailController.text, _passwordController.text);
-                  if (Provider.of<DataController>(context).isLoginError) {}
-                }
-              },
-            ),
+            Provider.of<DataController>(context, listen: true).isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : AuthButton(
+                    buttonText: "Login",
+                    onTriger: () async {
+                      if (FormValidator.validateAndSave(_formkey)) {
+                        bool isValid = await Provider.of<DataController>(
+                                context,
+                                listen: false)
+                            .getUserLogin(_emailController.text,
+                                _passwordController.text) as bool;
+                        if (isValid) {
+                          Navigator.pushNamed(context, DashBoardScreen.id);
+                        }
+                      }
+                    },
+                  ),
           ],
         ),
       ),
