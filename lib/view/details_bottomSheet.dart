@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:trip_app/view/driver_list_screen.dart';
 
 import '../model/constants.dart';
 import '../model/trip_model.dart';
@@ -119,11 +120,12 @@ detailsBottomSheet(context, size, trip) {
                     backgroundColor: Kcolor.secondaryColor,
                   ),
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => DriverListScreen(tripId: tripId)),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              DriverListScreen(tripId: trip.id)),
+                    );
                   },
                   child: const Text('Select Drive'),
                 )
