@@ -34,7 +34,7 @@ class _CustomTripWidgetState extends State<CustomTripWidget> {
               SizedBox(
                 width: size.width * 0.02,
               ),
-              Text(text),
+              Text(text.split(",")[0]),
             ],
           ),
         ),

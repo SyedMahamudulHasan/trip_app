@@ -132,6 +132,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     final data = Provider.of<DataController>(context);
     final Size size = MediaQuery.of(context).size;
 
+    log(data.isLoading.toString());
+
     return Scaffold(
       body: Padding(
         padding:
@@ -200,7 +202,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       .getAllTrips();
                 },
                 child: Visibility(
-                  visible: data.isLoading,
+                  visible: data.trips.count == 0
+                      ? false
+                      : true, // if we got data then visible
                   replacement: const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -208,10 +212,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     // shrinkWrap: true,
                     itemCount: isFiltered
                         ? (searchResult.isEmpty
-                            ? data.trips.count
+                            ? data.trips.results!.length
                             : searchResult.length)
                         : (filteredList.isEmpty
-                            ? data.trips.count
+                            ? data.trips.results!.length
                             : filteredList.length),
 
                     itemBuilder: (context, index) => GestureDetector(
@@ -250,7 +254,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   : (filteredList.isEmpty
                                       ? data.trips.results![index]
                                       : filteredList[index]),
-                            ),                                                            
+                            ),
                             SizedBox(
                               height: size.width * 0.02,
                             )

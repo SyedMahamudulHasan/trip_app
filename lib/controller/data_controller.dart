@@ -100,15 +100,13 @@ class DataController extends ChangeNotifier {
 
     if (response != null) {
       if (response.statusCode == 200) {
-        print(response.data);
         driver_list = (response.data as List)
             .map((e) => DriverModel.fromJson(e))
             .toList();
-        log("==============>>>>>> driver data fetched");
+        isDriver = true;
         isLoading = false;
         notifyListeners();
       } else if (response.statusCode == 404) {
-        print("==================>>>>> ${response.data}");
         isDriver = false;
         isLoading = false;
         notifyListeners();

@@ -43,7 +43,7 @@ class Results {
   int? hours;
   String? returnDate;
   String? returnTime;
-  String? approximateDuration;
+  int? approximateDuration;
   List<StopsSet>? stopsSet;
   bool? tripForOthers;
   String? passengerName;
