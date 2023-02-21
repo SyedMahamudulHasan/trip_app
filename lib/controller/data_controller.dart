@@ -9,8 +9,6 @@ import 'package:trip_app/model/localDB.dart';
 import '../model/constants.dart';
 import '../model/trip_model.dart';
 
-//http://192.168.0.180:6969/api/v1/login/
-
 class DataController extends ChangeNotifier {
   ConnectionHelper connectionHelper = ConnectionHelper();
   TripModel trips = TripModel();
@@ -47,6 +45,8 @@ class DataController extends ChangeNotifier {
       notifyListeners();
       return false;
     }
+    isLoading = false;
+    notifyListeners();
     return false;
   }
 
@@ -89,7 +89,8 @@ class DataController extends ChangeNotifier {
   }
 
   Future<void> getDriverList(String tripID) async {
-    isLoading = false;
+    isLoading = true;
+    notifyListeners();
 
     final token = await userData.getToken();
 
@@ -99,19 +100,21 @@ class DataController extends ChangeNotifier {
 
     if (response != null) {
       if (response.statusCode == 200) {
+        print(response.data);
         driver_list = (response.data as List)
             .map((e) => DriverModel.fromJson(e))
             .toList();
         log("==============>>>>>> driver data fetched");
-        isLoading = true;
+        isLoading = false;
         notifyListeners();
       } else if (response.statusCode == 404) {
         print("==================>>>>> ${response.data}");
         isDriver = false;
-        isLoading = true;
+        isLoading = false;
         notifyListeners();
       }
     }
+    isLoading = false;
     notifyListeners();
   }
 

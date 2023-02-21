@@ -75,7 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     isPassword: true,
                     keyBoardType: TextInputType.text,
                     onValidate: (value) {
-                      return FormValidator.passwordValidation(value);
+                      if (value!.isEmpty) {
+                        return "Invalid Password";
+                      } else {
+                        return null;
+                      }
                     },
                   ),
                   SizedBox(height: size.height * 0.02),
