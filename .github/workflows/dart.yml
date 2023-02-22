@@ -55,5 +55,5 @@ jobs:
           flutter-version: '3.0.5'
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build apk
+      - run: flutter build apk --target-platform android-arm --split-per-abi
       - run: flutter build appbundle
