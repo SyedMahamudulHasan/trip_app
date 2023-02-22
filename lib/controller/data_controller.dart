@@ -57,7 +57,8 @@ class DataController extends ChangeNotifier {
     final token = await userData.getToken();
 
     Response<dynamic>? response = await connectionHelper.getDataWithHeader(
-        "http://192.168.0.249:8001/admin/api/v1/all-trips/", token);
+        "https://uc-backend.unitedchauffeur.co.uk/admin/api/v1/all-trips/",
+        token);
 
     if (response!.statusCode == 200) {
       log('Data fetched');
@@ -75,7 +76,9 @@ class DataController extends ChangeNotifier {
     final token = await userData.getToken();
     //isLoading = true;
     Response<dynamic>? response = await connectionHelper.postDataWithHeaders(
-        "http://192.168.0.249:8001/admin/api/v1/set-trip-status/", data, token);
+        "https://uc-backend.unitedchauffeur.co.uk/admin/api/v1/set-trip-status/",
+        data,
+        token);
 
     if (response!.statusCode == 200) {
       log('Data gache');
@@ -95,7 +98,7 @@ class DataController extends ChangeNotifier {
     final token = await userData.getToken();
 
     Response<dynamic>? response = await connectionHelper.getDataWithHeader(
-        "http://192.168.0.249:8001/admin/api/v1/show-drivers-for-trip/$tripID/",
+        "https://uc-backend.unitedchauffeur.co.uk/admin/api/v1/show-drivers-for-trip/$tripID/",
         token);
 
     if (response != null) {

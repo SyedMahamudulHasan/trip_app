@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
-const String baseUrl = 'http://192.168.0.249:8001/api/v1';
+const String baseUrl = 'https://uc-backend.unitedchauffeur.co.uk/api/v1';
 
 Map<String, String> statusIcon = {
   "waiting": "assets/icons/wait.png",
