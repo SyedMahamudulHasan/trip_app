@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             ///=========================================> buttons
             Provider.of<DataController>(context, listen: true).isLoading
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : AuthButton(
